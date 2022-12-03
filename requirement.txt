@@ -1,0 +1,16 @@
+PyMySQL    ==1.0.2
+matplotlib ==3.6.2
+numpy      ==1.23.5
+prophet    ==1.1.1
+Flask      ==2.2.2
+pandas     ==1.5.2
+alembic    ==1.8.1
+Flask-Migrate  ==4.0.0
+Flask-SQLAlchemy==3.0.2
+mysql-connector ==2.2.9
+Flask-Migrate   ==4.0.0
+Flask-Cors   ==3.0.10
+mysql-connector-python == 8.0.31
+Flask-Migrate   ==       4.0.0
+pandas               ==  1.5.2
+beautifulsoup4       ==  4.11.1
