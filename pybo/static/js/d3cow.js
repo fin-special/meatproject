@@ -16,7 +16,7 @@
     
     //Read the data
     
-    d3.csv("./static/predict_cow_price.csv", function(data) {
+    d3.json("./static/cow_predict_price.json", function(data) {
       
         console.log(data)
         var parseDate = d3.timeParse("%Y-%m-%d");
@@ -29,7 +29,7 @@
        
         // A color scale: one color for each group
         var myColor = d3.scaleOrdinal()
-          .domain("price")
+          .domain("yhat")
           .range(d3.schemeSet2);
 
         
@@ -47,9 +47,9 @@
         // Add Y axis
         var y = d3.scaleLinear()
           .domain( [d3.min(data.map(function(d){
-                return d.price
+                return d.yhat
             })), d3.max(data.map(function(d){
-                return d.price
+                return d.yhat
             }))])
           .range([ height, 0 ]);
         svg.append("g")
@@ -65,9 +65,9 @@
             .attr("d", d3.line()
               .curve(d3.curveNatural)
               .x(function(d) { return x(+d.ds) })
-              .y(function(d) { return y(+d.price) })
+              .y(function(d) { return y(+d.yhat) })
             )
-            .attr("stroke", function(d){ return myColor("price") })
+            .attr("stroke", function(d){ return myColor("yhat") })
             .attr("class","lines")
             .style("stroke-width", 3)
             .style("fill", "none")
@@ -86,9 +86,9 @@
               .attr("d", d3.line()
                 .curve(d3.curveNatural)
                 .x(function(d) { return x(+d.ds) })
-                .y(function(d) { return y(+d.price) })
+                .y(function(d) { return y(+d.yhat) })
               )
-              .attr("stroke", function(d){ return myColor("price") })
+              .attr("stroke", function(d){ return myColor("yhat") })
           var mousecon = d3.selectAll("g.cw")
           var mouseG = mousecon.append("g")
                     .attr("class", "mouse-over-effects");
@@ -147,7 +147,7 @@
                 .attr("transform", function(d, i) {
                   var xDate = x.invert(mouse[0]),
                       bisect = d3.bisector(function(d) { return d.ds; }).right;
-                      idx = bisect(d.price, xDate);
+                      idx = bisect(d.yhat, xDate);
                   
                   var beginning = 0,
                       end = lines[i].getTotalLength(),

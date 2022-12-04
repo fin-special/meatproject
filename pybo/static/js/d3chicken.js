@@ -16,7 +16,7 @@
     
     //Read the data
     
-    d3.json("./static/chicken_price.json", function(data) {
+    d3.json("./static/chicken_predict_price.json", function(data) {
       
         
         var parseDate = d3.timeParse("%Y-%m-%d");

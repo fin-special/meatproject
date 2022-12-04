@@ -172,6 +172,24 @@ predict_size_13_16 = forecast[['ds', 'yhat']]
 with open('C:/DEV/Flask/projects/chickprojectcopy/pybo/src/chicken_13_16_model.json', 'w') as fout:
     fout.write(model_to_json(m))
 
+size = ["5_6", "7_8", "9_10", "11", "12", "13_16"]
+for i in size:
+    with open(f'./pybo/src/chicken_{i}_model.json', 'r') as fin:
+        model_chicken = model_from_json(fin.read())
+    future_chicken = model_chicken.make_future_dataframe(periods=28)
+    pred_chicken = model_chicken.predict(future_chicken)
+    if i == "5_6":
+        data1 = pred_chicken[['ds', 'yhat']][-28:]
+        data1["ds"] = data1["ds"].dt.strftime("%Y-%m-%d")
+        data1.rename(columns={"yhat": f"p{i}"}, inplace=True)
+    else:
+        data2 = pred_chicken[['ds', 'yhat']][-28:]
+        data2["ds"] = data2["ds"].dt.strftime("%Y-%m-%d")
+        data2.rename(columns={"yhat": f"p{i}"}, inplace=True)
+
+        data1 = pd.merge(data1, data2, on="ds")
+data1.to_json('./pybo/src/chicken_price.json',
+                orient='records', date_format='iso')
 
 dfs = [predict_size_5_6, predict_size_7_8, predict_size_9_10,
        predict_size_11, predict_size_12, predict_size_13_16]
@@ -183,7 +201,7 @@ df_final.columns = col
 
 df_final['평균가격'] = df_final.mean(axis=1)
 
-df_final = df_final.tail(4)
+df_final = df_final.tail(28)
 df_final.reset_index(drop=True, inplace=True)
 df_final.to_csv(
     'C:/DEV/Flask/projects/chickprojectcopy/static/predict_chicken.csv')
