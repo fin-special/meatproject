@@ -27,7 +27,7 @@ class Newscow(db.Model):
         self.title = title
         self.url = url
 
-class NewsPork(db.Model):
+class Newspork(db.Model):
     __tablename__ = 'news_pork'
     # __table_args__ = {'mysql_collate': 'utf8_general_ci'}
 
