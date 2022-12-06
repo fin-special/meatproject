@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for
-from ..models import Newschicken, Newscow, Newspork
-
+from ..models import Newschicken, Newscow, Newspork, Disease_current
+from sqlalchemy import func
 bp = Blueprint('main', __name__, url_prefix='/')
 
 # 메인화면
@@ -38,3 +38,21 @@ def predictPork():
     news_pork = Newspork.query.all()
 
     return render_template('predictPork.html', news_pork=news_pork)
+
+@bp.route('/ai_current_css', methods=["GET"])
+def ai_current_css():
+    case_cnt = Disease_current.query.filter(Disease_current.date >= func.ADDDATE(func.NOW(), -30)).count()
+    showfive = Disease_current.query.filter(Disease_current.animal.like('닭%')).order_by(Disease_current.date.desc()).limit(5)
+    return render_template('disease_current_css.html', showfive=showfive, case_cnt=case_cnt)
+
+@bp.route('/base_test1',  methods=["GET"])
+def base_test1():
+
+    return render_template('base_test1.html')
+
+
+@bp.route('/base_test2',  methods=["GET"])
+def base_test2():
+    case_cnt = Disease_current.query.filter(Disease_current.date >= func.ADDDATE(func.NOW(), -30)).count()
+    showfive = Disease_current.query.filter(Disease_current.animal.like('닭%')).order_by(Disease_current.date.desc()).limit(5)
+    return render_template('base_test2.html', showfive=showfive, case_cnt=case_cnt)

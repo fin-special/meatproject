@@ -38,3 +38,19 @@ class Newspork(db.Model):
     def __init__(self, title, url):
         self.title = title
         self.url = url
+
+# 질병현황 테이블
+class Disease_current(db.Model):
+    __tablename__ = 'disease_current'
+    date = db.Column(db.String(500, 'utf8mb4_unicode_ci'), nullable=False, primary_key=True)
+    farm_nm = db.Column(db.String(500, 'utf8mb4_unicode_ci'), nullable=False, primary_key=True)
+    addr = db.Column(db.String(500, 'utf8mb4_unicode_ci'), nullable=False)
+    ds_nm = db.Column(db.String(500, 'utf8mb4_unicode_ci'), nullable=False)
+    animal = db.Column(db.String(500, 'utf8mb4_unicode_ci'), nullable=False)
+
+    def __init__(self, date, farm_nm, addr, ds_nm ,animal):
+        self.date = date
+        self.farm_nm = farm_nm
+        self.addr = addr
+        self.ds_nm = ds_nm
+        self.animal = animal

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="main">
+
+    <!-- Section -->
+    <!-- ai현황알리미 -->
+        <section id="second" class="main special">
+            
+            <header class="major">
+                <span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 최근 1개월 간 AI 발병 수는 </span>
+                <br>
+                <span style="color: #f08080; font-size: 3em; font-weight: 700;"> {{ case_cnt }} </span>
+                <span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 건 입니다. </span>
+                <!-- <h2> 입니다. </h2> -->
+            </header>
+            
+            <table >
+                <thead>
+                    <th>발병일자</th>
+                    <th>주소</th>
+                </thead>
+                <tbody>
+                {% for case in showfive %}
+                    <tr>
+                        <td>{{ case.date }}</td>
+                        <td>{{ case.addr }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            
+            <button onclick="window.open('https://www.mafra.go.kr/FMD-AI2/map/AI/AI_map.jsp')" target='_blank'>
+                AI 발병현황 지도로 확인하기 
+            </button>
+        </section>
+</div>
+{% endblock %}

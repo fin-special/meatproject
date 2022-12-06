@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from flask_cors import CORS, cross_origin
+from flask_ngrok import run_with_ngrok
 
 import config
 
@@ -14,6 +15,8 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
     app.config.from_object(config)
+    
+    run_with_ngrok(app)
     
     # ORM
     db.init_app(app)
