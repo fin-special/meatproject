@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="main">
+	<div class="inner">
+		<h1>Generic Page 1 닭고기 페이지가 될겁니다. </h1>
+		<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
+		<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel venenatis mauris vehicula hendrerit.</p>
+		<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+	</div>
+</div>
+<!-- <section class="tiles"> -->
+	<div id="content">
+
+		<!-- Section -->
+		<!-- ai현황알리미 -->
+			<section id="second" class="main special">
+				
+				<header class="major">
+					<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 최근 1개월 간 AI 발병 수는 </span>
+					<br>
+					<span style="color: #f08080; font-size: 3em; font-weight: 700;"> {{ case_cnt }} </span>
+					<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 건 입니다. </span>
+					<!-- <h2> 입니다. </h2> -->
+				</header>
+				
+				<table >
+					<thead>
+						<th>발병일자</th>
+						<th>주소</th>
+						<th>질병명</th>
+						
+					</thead>
+					<tbody>
+					{% for case in showfive %}
+						<tr>
+							<td>{{ case.date }}</td>
+							<td>{{ case.addr }}</td>
+							<td>{{ case.ds_nm }}</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+				
+				<button onclick="window.open('https://www.mafra.go.kr/FMD-AI2/map/AI/AI_map.jsp')" target='_blank' style="margin: 0 0 0.2em 0;">
+					AI 발병현황 지도로 확인하기 
+				</button>
+			</section>
+	</div>
+<!-- </section> -->
+{% endblock %}
