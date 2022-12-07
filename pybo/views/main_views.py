@@ -29,8 +29,9 @@ def main():
 def base_generic1():
     case_cnt = GetAiCnt(Disease_current)
     showfive = GetAiData(Disease_current)
+    news_chicken = Newschicken.query.all()
     
-    return render_template('base_generic1.html', showfive=showfive, case_cnt=case_cnt)
+    return render_template('base_generic1.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken)
 
 
 
@@ -39,9 +40,9 @@ def base_generic1():
 def base_generic2():
     case_cnt = GetCnt(Disease_current,'소')
     showfive = GetData(Disease_current,'소')
-   
+    news_cow = Newscow.query.all()
 
-    return render_template('base_generic2.html', showfive=showfive, case_cnt=case_cnt)
+    return render_template('base_generic2.html', showfive=showfive, case_cnt=case_cnt, news_cow=news_cow)
 
 
 
@@ -50,8 +51,21 @@ def base_generic2():
 def base_generic3():
     case_cnt = GetCnt(Disease_current,'돼지')
     showfive = GetData(Disease_current,'돼지')
+    news_pork = Newspork.query.all()
 
-    return render_template('base_generic3.html', showfive=showfive, case_cnt=case_cnt)
+    return render_template('base_generic3.html', showfive=showfive, case_cnt=case_cnt, news_pork=news_pork)
+
+
+
+# 백엔드에서 base.html 접근용-------------------------------------------------------------------------
+@bp.route('/base', methods=["GET"])
+def base():
+    return render_template('base.html')
+
+
+
+
+
 
 
 
@@ -81,8 +95,3 @@ def predictPork():
 
 
 
-
-# 백엔드에서 base.html 접근용
-@bp.route('/base', methods=["GET"])
-def base():
-    return render_template('base.html')

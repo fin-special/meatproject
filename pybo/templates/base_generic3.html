@@ -1,20 +1,165 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+<style>
+	html, body{
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+	}
+	.container{
+		display: flex;
+		height: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	/* 배너 컨테이너 */
+	.rollingbanner{
+		position: relative;
+		width: 100%;			/* 여기서 배너 가로길이 조절 */
+		height: 40px;
+		font-size: 1rem;
+		letter-spacing: -1px;
+		padding: 7px 15px;
+		box-sizing: border-box;
+		background-color: #6FCC98;
+		border-radius: 16px;
+		
+	}
+	/* 타이틀 */
+	.rollingbanner > .title{
+		font-weight: bold;
+		float: left;
+		padding-right: 10px;
+	}
+	/* 꼬리 */
+	.rollingbanner > .tail{
+		font-weight: bold;
+		float: right;
+		padding-right: 10px;
+	}
+	/* 롤링 배너 */
+	.rollingbanner > .wrap{
+		position: relative;
+		width: auto;
+		height: 100%;
+		box-sizing: border-box;
+		overflow: hidden;
+	}        
+	.rollingbanner ul{
+		list-style: none;
+	}
+	.rollingbanner li{
+		position: absolute;
+		top: -36px;
+		left: 0;
+	}
+	/* 이전, 현재, 다음 롤링 배너 표시 */
+	.rollingbanner li.prev{
+		top: 36px;
+		transition: top 0.5s ease;
+	}
+	.rollingbanner li.current{
+		top: 0;
+		transition: top 0.5s ease;
+	}
+	.rollingbanner li.next{
+		top: -36px;
+	}
+	.rollingbanner a{
+		display: block;
+		display: -webkit-box;
+		text-decoration: none;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient:vertical;
+		overflow: hidden;
+		color: rgb(255, 255, 255);
+	}
+	/* 반대 방향으로 진행 */
+	.rollingbanner.reverse li.prev{
+		top: -36px;
+		transition: top 0.5s ease;
+	}
+	.rollingbanner.reverse li.next{
+		top: 36px;
+	}
+</style>
+<script>
+	document.addEventListener('DOMContentLoaded', ()=>{
+		var interval = window.setInterval(rollingCallback, 3000);
+	})
+	function rollingCallback(){
+		//.prev 클래스 삭제
+		document.querySelector('.rollingbanner .prev').classList.remove('prev');
+
+		//.current -> .prev
+		let current = document.querySelector('.rollingbanner .current');
+		current.classList.remove('current');
+		current.classList.add('prev');
+
+		//.next -> .current
+		let next = document.querySelector('.rollingbanner .next');
+		//다음 목록 요소가 널인지 체크
+		if(next.nextElementSibling == null){
+			document.querySelector('.rollingbanner ul li:first-child').classList.add('next');
+		}else{
+			//목록 처음 요소를 다음 요소로 선택
+			next.nextElementSibling.classList.add('next');
+		}
+		next.classList.remove('next');
+		next.classList.add('current');
+	}
+</script>
+{% endblock %}
+
 {% block content %}
 <div id="main">
-	<div class="inner">
-		<h1>Generic Page 3 돼지고기 페이지가 될겁니다. </h1>
-		<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
-		<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique.</p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel venenatis mauris vehicula hendrerit.</p>
-		<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+	<div id="pagename" class="inner">
+		<h1> 제목부분 =  돼지고기 페이지가 될겁니다. </h1>
 	</div>
-</div>
-<div id="content">
+	<div class="inner">
+		<!-- 뉴스기사 배너 -->
+		<section class="special">
+			<div class="container">
+				<div class="rollingbanner" id="First">
+					<div class="title" , style="font-size: 1rem;"> 금주의 이슈 > </div>
+					<div class="wrap">
+						<ul>
+							<li class="current"><a href="{{ news_pork[-10].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_pork[-10].title }} </a></li>
+							<li class="prev"><a href="{{ news_pork[-9].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_pork[-9].title }} </a></li>
+							<li class="next"><a href="{{ news_pork[-8].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_pork[-8].title }} </a></li>
+							<li><a href="{{ news_pork[-7].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_pork[-7].title }} </a></li>
+							<li><a href="{{ news_pork[-6].url }}", style="font-size: 1rem;", target="'_blank">{{ news_pork[-6].title }}</a></li>
+							<li><a href="{{ news_pork[-5].url }}", style="font-size: 1rem;", target="'_blank">{{ news_pork[-5].title }}</a></li>
+							<li><a href="{{ news_pork[-4].url }}", style="font-size: 1rem;", target="'_blank">{{ news_pork[-4].title }}</a></li>
+							<li><a href="{{ news_pork[-3].url }}", style="font-size: 1rem;", target="'_blank">{{ news_pork[-3].title }}</a></li>
+							<li><a href="{{ news_pork[-2].url }}", style="font-size: 1rem;", target="'_blank">{{ news_pork[-2].title }}</a></li>
+							<li><a href="{{ news_pork[-1].url }}", style="font-size: 1rem;", target="'_blank">{{ news_pork[-1].title }}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+        <br>
+		<span class="image main"><img src="/static/css/images/pic13.jpg" alt="" /> 그래프 들어갈 자리</span>
+		<!-- <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel venenatis mauris vehicula hendrerit.</p>
+		<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p> -->
+	</section>
 
-    <!-- Section -->
+
+	<section class="special">nth-child(2)
+		<a>컨텐츠박스 3</a>
+	</section>
+
+	<section class="special">nth-child(3)
+		<a>컨텐츠박스 2</a>
+	</section>
+
+	
     <!-- ai현황알리미 -->
-        <section id="second" class="main special">
+        <section class="special">
             
             <header class="major">
                 <span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 최근 1개월 간 돼지 질병 발병 수는 </span>
@@ -26,7 +171,7 @@
             
             <table >
                 <thead>
-                    <th>발병일자</th>
+                    <th style="width: 27%;">발병일자</th>
                     <th>주소</th>
 					<th>질병명</th>
 					
@@ -45,9 +190,7 @@
             <button onclick="window.open('https://www.mafra.go.kr/FMD-AI2/map/ASF/ASF_map.jsp')" target='_blank' style="margin: 0 0 0.2em 0;">
                 아프리카돼지열병 발병현황 지도 
             </button>
-            <button onclick="window.open('https://www.mafra.go.kr/FMD-AI2/map/FMD/FMD_map.jsp')" target='_blank' style="margin: 0 0 0.2em 0;">
-                구제역 발병현황 지도
-            </button>
         </section>
+    </div>
 </div>
 {% endblock %}

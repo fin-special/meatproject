@@ -1,28 +1,24 @@
 
-
-
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 100, bottom: 30, left: 50},      
-        width = 1360 - margin.left - margin.right,
-        height = 700 - margin.top - margin.bottom;
+    var margin = {top: 10, right: 100, bottom: 30, left: 50},
+        width = 960 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#chicken")
+    var container = d3.select("#cow")
       .append("svg")
-        // .attr("width", width + margin.left + margin.right)
-        // .attr("height", height + margin.top + margin.bottom)
-      .attr("viewBox", '0 0 1300 1000')
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
       .append("g")
+        .attr("class","cw")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
     
     //Read the data
     
-
-    d3.json("./static/json/chicken_predict_price.json", function(data) {
-
+    d3.json("./static/cow_predict_price.json", function(data) {
       
-        
+        console.log(data)
         var parseDate = d3.timeParse("%Y-%m-%d");
     
         // 날짜형식 parser
@@ -30,36 +26,19 @@
           d.ds = parseDate(d.ds);
         });
 
-        // List of groups (here I have one group per column)
-        var allGroup = ["p5_6","p7_8","p9_10","p11","p12","p13_16"]
-        // add the options to the buttons
-        d3.select("#selectButton")
-          .selectAll('myOptions')
-          .data(allGroup)
-          .enter()
-            .append('option')
-          .text(function (d) {
-                if(d=="p5_6") d="5-6호";
-                else if(d=="p7_8") d="7-8호"
-                else if(d=="p9_10") d="9-10호"
-                else if(d=="p11")  d="11호"
-                else if(d=="p12") d="12호"
-                else if(d=="p13_16") d="13-16호"
-                return d
-             }) // text showed in the menu
-          .attr("value", function (d) { return d; }) // corresponding value returned by the button
-    
+       
         // A color scale: one color for each group
         var myColor = d3.scaleOrdinal()
-          .domain(allGroup)
+          .domain("yhat")
           .range(d3.schemeSet2);
 
+        
         // Add X axis --> it is a date format
         var x = d3.scaleTime()
             .domain(d3.extent(data, function(d) {return d.ds;}))
             .range([0, width])
-
-         svg.append("g")
+        svg = d3.selectAll("g.cw")
+        svg.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(d3.axisBottom(x));
@@ -68,92 +47,65 @@
         // Add Y axis
         var y = d3.scaleLinear()
           .domain( [d3.min(data.map(function(d){
-                return d.p5_6
+                return d.yhat
             })), d3.max(data.map(function(d){
-                return d.p5_6
+                return d.yhat
             }))])
           .range([ height, 0 ]);
-        var yAxis = svg.append("g")
-          .attr("class", "y")
+        svg.append("g")
+          .attr("class", "y axis")
           .call(d3.axisLeft(y));
     
         
         // Initialize line with group a
-        var line = svg
+        var line =  svg
           .append('g')
           .append("path")
             .datum(data)
             .attr("d", d3.line()
               .curve(d3.curveNatural)
               .x(function(d) { return x(+d.ds) })
-              .y(function(d) { return y(+d.p5_6) })
+              .y(function(d) { return y(+d.yhat) })
             )
-            .attr("stroke", function(d){ return myColor("p5_6") })
-            .attr("class","line")
+            .attr("stroke", function(d){ return myColor("yhat") })
+            .attr("class","lines")
             .style("stroke-width", 3)
             .style("fill", "none")
-  
+          
         // A function that update the chart
-        function update(selectedGroup) {
+        function update() {
     
-          // Create new data with the selection?
-          var dataFilter = data.map(function(d){return {ds: d.ds, price:d[selectedGroup]} })
-
-
-          
-       
-      
-          
-          console.log(dataFilter)
-          //update Y axis
-          y.domain( [d3.min(dataFilter.map(function(d){
-                  return d.price
-              })), d3.max(dataFilter.map(function(d){
-                  return d.price
-              }))])
-
-          yAxis
-              .transition()
-              .duration(1000)
-              .call(d3.axisLeft(y));
-          
-            
-          
-
-          
+        
           // Give these new data to update line
           line
-              .datum(dataFilter)
+              .datum(data)
               .transition()
-
-              .duration(2000)
-              .attr("class","line")
+              .duration(1000)
+              
+              .attr("class","lines")
               .attr("d", d3.line()
                 .curve(d3.curveNatural)
-
                 .x(function(d) { return x(+d.ds) })
-                .y(function(d) { return y(+d.price) })
+                .y(function(d) { return y(+d.yhat) })
               )
-              .attr("stroke", function(d){ return myColor(selectedGroup) })
-          
-
-          
-          var mouseG = svg.append("g")
-
+              .attr("stroke", function(d){ return myColor("yhat") })
+          var mousecon = d3.selectAll("g.cw")
+          var mouseG = mousecon.append("g")
                     .attr("class", "mouse-over-effects");
       
-          var lines = document.getElementsByClassName('line');
+          var lines = document.getElementsByClassName('lines');
         
               
           var mousePerLine = mouseG.selectAll('.mouse-per-line')
-            .data(dataFilter)
+            .data(data)
             .enter()
             .append("g")
             .attr("class", "mouse-per-line");
               
           mousePerLine.append("circle")
           .attr("r", 7)
-          .style("stroke", "#000")
+          .style("stroke", "#000"
+          )
           .style("fill", "none")
           .style("stroke-width", "1px")
           .style("opacity", "0");
@@ -162,22 +114,20 @@
             .attr("transform", "translate(10,3)");
       
           mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
-
-            .attr('width',width) // can't catch mouse events on a g element
-
+            .attr('width', width) // can't catch mouse events on a g element
             .attr('height', height)
             .attr('fill', 'none')
             .attr('pointer-events', 'all')
             .on('mouseout', function() { // on mouse out hide line, circles and text
-              d3.select(".mouse-line1")
+              d3.select(".mouse-line")
                 .style("opacity", "0");
               d3.selectAll(".mouse-per-line circle")
                 .style("opacity", "0");
-              d3.selectAll(".mouse-per-line text1")
+              d3.selectAll(".mouse-per-line text")
                 .style("opacity", "0");
             })
             .on('mouseover', function() { // on mouse in show line, circles and text
-              d3.select(".mouse-line1")
+              d3.select(".mouse-line")
                 .style("opacity", "1");
               d3.selectAll(".mouse-per-line circle")
                 .style("opacity", "1");
@@ -197,8 +147,7 @@
                 .attr("transform", function(d, i) {
                   var xDate = x.invert(mouse[0]),
                       bisect = d3.bisector(function(d) { return d.ds; }).right;
-                      
-                      idx = bisect(d.price, xDate);
+                      idx = bisect(d.yhat, xDate);
                   
                   var beginning = 0,
                       end = lines[i].getTotalLength(),
@@ -221,16 +170,18 @@
                   
                   return "translate(" + mouse[0] + "," + pos.y +")";
                 });
-            });
-            
+            }); 
         }
+       
+             var t = document.getElementById('target');
+             t.addEventListener('click', function(){
+                 update()
+             });
+  
+      })
     
-        // When the button is changed, run the updateChart function
-        d3.select("#selectButton").on("change", function(d) {
-            // recover the option that has been chosen
-            var selectedOption = d3.select(this).property("value")
+       
             // run the updateChart function with this selected option
-            update(selectedOption)
-        })
-    })
+        
+    
     

@@ -42,7 +42,7 @@ for i in range(10):
     title = result[i]['title']
     url = result[i]['url']
 
-    sql = "INSERT INTO news_pork( title,url ) VALUES (%s, %s)"
+    sql = "INSERT IGNORE INTO news_pork( title,url ) VALUES (%s, %s)"
     val = (title,url)
 
 
