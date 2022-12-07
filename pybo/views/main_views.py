@@ -65,17 +65,6 @@ def base():
 
 
 
-# 반응형 웹 테스트용 페이지------------------------------------------------------------------------------------
-@bp.route('/test',  methods=["GET"])
-def test():
-    case_cnt = GetAiCnt(Disease_current)
-    showfive = GetAiData(Disease_current)
-    news_chicken = Newschicken.query.all()
-    
-    return render_template('reactive_test.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken)
-
-
-
 
 
 
