@@ -10,9 +10,12 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" /> -->
-		<link rel="stylesheet" href="/static/css/main.css" />
+		<link rel="stylesheet" href="/static/css/main_fix.css" />
 		<noscript><link rel="stylesheet" href="/static/css/noscript.css" /></noscript>
+		{% block styles %}
+		{% endblock %}
 	</head>
+	
 	<body class="is-preload">
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -23,7 +26,7 @@
 
 							<!-- Logo -->
 								<a href="/" class="logo">
-									<span class="symbol"><img src="/static/css/images/logo.svg" alt="" /></span><span class="title"> 테스트용 페이지 입니다. </span>
+									<span class="symbol"><img src="/static/css/images/logo.svg" alt="" /></span><span class="title"> 축산물 가격예측 사이트입니다. </span>
 								</a>
 
 							<!-- Nav -->
@@ -44,6 +47,7 @@
 							<li><a href="/chicken">닭</a></li>
 							<li><a href="/cow">소</a></li>
 							<li><a href="/pig">돼지</a></li>
+							<li><a href="/test">반응형 웹 테스트</a></li>
 							<li><a href="elements.html">Contact</a></li>
 						</ul>
 					</nav>
@@ -74,6 +78,7 @@
 									</ul>
 								</form>
 							</section>
+							
 							<section>
 								<h2>Follow</h2>
 								<ul class="icons">
@@ -97,14 +102,14 @@
 			</div>
 
 		<!-- Scripts -->
-			<script  type="text/javascript" src="{{ url_for('static', filename='js/d3pork.js') }}"></script>
-			<script  type="text/javascript" src="{{ url_for('static', filename='js/d3chicken.js') }}"></script>
-			<script  type="text/javascript" src="{{ url_for('static', filename='js/d3cow.js') }}"></script>
-			<script  type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }} "></script>   
-			<script  type="text/javascript" src="{{ url_for('static', filename='js/browser.min.js') }}"></script>
-			<script  type="text/javascript" src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
-			<script  type="text/javascript" src="{{ url_for('static', filename='js/util.js') }}"></script> -->
-			<script  type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+			<script  type="text/javascript" src="/static/js/d3pork.js"></script>
+			<script  type="text/javascript" src="/static/js/d3chicken.js"></script>
+			<script  type="text/javascript" src="/static/js/d3cow.js"></script>
+			<script  type="text/javascript" src="/static/js/jquery.min.js"></script>   
+			<script  type="text/javascript" src="/static/js/browser.min.js"></script>
+			<script  type="text/javascript" src="/static/js/breakpoints.min.js"></script>
+			<script  type="text/javascript" src="/static/js/util.js"></script> -->
+			<script  type="text/javascript" src="/static/js/main.js"></script>
 
 
 	</body>
