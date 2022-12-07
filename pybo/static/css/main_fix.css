@@ -2831,9 +2831,9 @@ input, select, textarea {
 		}
 
 /* Header */
-
+	/* 웹환경 상단 여백 */
 	#header {
-		padding: 8em 0 0.1em 0 ;
+		padding: 3em 0 0.1em 0 ;
 	}
 
 		#header .logo {
@@ -2950,9 +2950,9 @@ input, select, textarea {
 						}
 
 		@media screen and (max-width: 736px) {
-
+			/* 앱환경 상단 여백 */
 			#header {
-				padding: 4em 0 0.1em 0 ;
+				padding: 2em 0 0.1em 0 ;
 			}
 
 				#header nav {
@@ -3180,11 +3180,13 @@ input, select, textarea {
 	#main > .inner section.special:nth-child(1) {
 		width: calc(50% - 1em);
 		margin-right: 1em;
+		margin-bottom: 1em;
 	}
 
 	#main > .inner section.special:nth-child(2) {
 		width: calc(50% - 1em);
 		margin-left: 1em;
+		margin-bottom: 1em;
 	}
 
 	#main > .inner section.special:nth-child(3) {
