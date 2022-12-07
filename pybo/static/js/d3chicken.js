@@ -1,22 +1,26 @@
 
+
+
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 100, bottom: 30, left: 50},
-        width = 960 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+    var margin = {top: 10, right: 100, bottom: 30, left: 50},      
+        width = 1360 - margin.left - margin.right,
+        height = 700 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var container = d3.select("#chicken")
+    var svg = d3.select("#chicken")
       .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        // .attr("width", width + margin.left + margin.right)
+        // .attr("height", height + margin.top + margin.bottom)
+      .attr("viewBox", '0 0 1300 1000')
       .append("g")
-        .attr("class","ck")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
     
     //Read the data
     
-    d3.json("./static/chicken_predict_price.json", function(data) {
+
+    d3.json("./static/json/chicken_predict_price.json", function(data) {
+
       
         
         var parseDate = d3.timeParse("%Y-%m-%d");
@@ -50,13 +54,12 @@
           .domain(allGroup)
           .range(d3.schemeSet2);
 
-        
         // Add X axis --> it is a date format
         var x = d3.scaleTime()
             .domain(d3.extent(data, function(d) {return d.ds;}))
             .range([0, width])
-        svg = d3.selectAll("g.ck")
-        svg.append("g")
+
+         svg.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(d3.axisBottom(x));
@@ -65,13 +68,13 @@
         // Add Y axis
         var y = d3.scaleLinear()
           .domain( [d3.min(data.map(function(d){
-                return d.p13_16
+                return d.p5_6
             })), d3.max(data.map(function(d){
                 return d.p5_6
             }))])
           .range([ height, 0 ]);
-        svg.append("g")
-          .attr("class", "y axis")
+        var yAxis = svg.append("g")
+          .attr("class", "y")
           .call(d3.axisLeft(y));
     
         
@@ -95,21 +98,48 @@
     
           // Create new data with the selection?
           var dataFilter = data.map(function(d){return {ds: d.ds, price:d[selectedGroup]} })
+
+
+          
+       
+      
+          
+          console.log(dataFilter)
+          //update Y axis
+          y.domain( [d3.min(dataFilter.map(function(d){
+                  return d.price
+              })), d3.max(dataFilter.map(function(d){
+                  return d.price
+              }))])
+
+          yAxis
+              .transition()
+              .duration(1000)
+              .call(d3.axisLeft(y));
+          
+            
+          
+
           
           // Give these new data to update line
           line
               .datum(dataFilter)
               .transition()
-              .duration(1000)
+
+              .duration(2000)
               .attr("class","line")
               .attr("d", d3.line()
+                .curve(d3.curveNatural)
+
                 .x(function(d) { return x(+d.ds) })
                 .y(function(d) { return y(+d.price) })
               )
               .attr("stroke", function(d){ return myColor(selectedGroup) })
           
-          var mousecon = d3.selectAll("g.ck")
-          var mouseG = mousecon.append("g")
+
+          
+          var mouseG = svg.append("g")
+
                     .attr("class", "mouse-over-effects");
       
           var lines = document.getElementsByClassName('line');
@@ -132,7 +162,9 @@
             .attr("transform", "translate(10,3)");
       
           mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
-            .attr('width', width) // can't catch mouse events on a g element
+
+            .attr('width',width) // can't catch mouse events on a g element
+
             .attr('height', height)
             .attr('fill', 'none')
             .attr('pointer-events', 'all')

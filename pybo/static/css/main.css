@@ -87,7 +87,6 @@ input, select, textarea {
 		html, body {
 			min-width: 320px;
 		}
-
 	}
 
 	html {
@@ -127,6 +126,11 @@ input, select, textarea {
 
 			body, input, select, textarea {
 				font-size: 14pt;
+			}
+
+			#chicken {
+				width: 700px;
+				height: 800px;
 			}
 
 		}
@@ -243,6 +247,10 @@ input, select, textarea {
 
 		h3 {
 			font-size: 0.8em;
+		}
+		
+		svg{
+			width: 500
 		}
 
 	}
