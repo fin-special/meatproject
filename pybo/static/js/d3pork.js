@@ -7,8 +7,9 @@
     // append the svg object to the body of the page
     var container = d3.select("#pork")
       .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        // .attr("width", width + margin.left + margin.right)
+        // .attr("height", height + margin.top + margin.bottom)
+        .attr("viewBox", '0 0 900 400')
       .append("g")
         .attr("class","pk")
         .attr("transform",
@@ -16,7 +17,7 @@
     
     //Read the data
     
-    d3.json("./static/pork_predict_price.json", function(data) {
+    d3.json("./static/json/pork_predict_price.json", function(data) {
       
         console.log(data)
         var parseDate = d3.timeParse("%Y-%m-%d");

@@ -1,9 +1,7 @@
 
-
-
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 100, bottom: 30, left: 50},      
-        width = 1360 - margin.left - margin.right,
+        width = 960 - margin.left - margin.right,
         height = 700 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
@@ -11,18 +9,18 @@
       .append("svg")
         // .attr("width", width + margin.left + margin.right)
         // .attr("height", height + margin.top + margin.bottom)
-      .attr("viewBox", '0 0 1300 1000')
+      .attr("viewBox", '0 0 900 400')
       .append("g")
+        .attr("class","ch") /* (수정) 1단계 - 요소영향 X */
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
     
     //Read the data
     
-
     d3.json("./static/json/chicken_predict_price.json", function(data) {
 
       
-        
+          
         var parseDate = d3.timeParse("%Y-%m-%d");
     
         // 날짜형식 parser
@@ -58,8 +56,8 @@
         var x = d3.scaleTime()
             .domain(d3.extent(data, function(d) {return d.ds;}))
             .range([0, width])
-
-         svg.append("g")
+        svg = d3.selectAll("g.ch")  
+        svg.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(d3.axisBottom(x));
@@ -137,8 +135,9 @@
               .attr("stroke", function(d){ return myColor(selectedGroup) })
           
 
-          
-          var mouseG = svg.append("g")
+          var mousecon = d3.selectAll("g.ch")
+          var mouseG = mousecon.append("g")
+          // var mouseG = svg.append("g")
 
                     .attr("class", "mouse-over-effects");
       
