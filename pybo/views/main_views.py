@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for
 from ..models import Newschicken, Newscow, Newspork, Disease_current
 from sqlalchemy import func
 import json
-from pybo.functions import predict_price, GetAiCnt, GetAiData, GetCnt, GetData
+from pybo.functions import predict_price, GetAiCnt, GetAiData, GetCnt, GetData, predict_price_all
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -30,8 +30,18 @@ def base_generic1():
     case_cnt = GetAiCnt(Disease_current)
     showfive = GetAiData(Disease_current)
     news_chicken = Newschicken.query.all()
+    chicken_path = 'pybo\static\json\chicken_predict_price.json'
+
+    chicken_price_5_6 = predict_price_all(chicken_path, 'p5_6')
+    chicken_price_7_8 = predict_price_all(chicken_path, 'p7_8')
+    chicken_price_9_10 = predict_price_all(chicken_path, 'p9_10')
+    chicken_price_11 = predict_price_all(chicken_path, 'p11')
+    chicken_price_12 = predict_price_all(chicken_path, 'p12')
+    chicken_price_13_16 = predict_price_all(chicken_path, 'p13_16')
     
-    return render_template('base_generic1.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken)
+    return render_template('base_generic1.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken,
+    chicken_price_5_6=chicken_price_5_6, chicken_price_7_8=chicken_price_7_8, chicken_price_9_10=chicken_price_9_10,
+    chicken_price_11=chicken_price_11, chicken_price_12=chicken_price_12, chicken_price_13_16=chicken_price_13_16)
 
 
 
@@ -61,6 +71,39 @@ def base_generic3():
 @bp.route('/base', methods=["GET"])
 def base():
     return render_template('base.html')
+
+
+# 테스트용 페이지------------------------------------------------------------------------------------
+@bp.route('/test',  methods=["GET"])
+def test():
+    case_cnt = GetAiCnt(Disease_current)
+    showfive = GetAiData(Disease_current)
+    news_chicken = Newschicken.query.all()
+    
+    chicken_path = 'pybo\static\json\chicken_predict_price.json'
+
+    chicken_price_5_6 = predict_price_all(chicken_path, 'p5_6')
+    chicken_price_7_8 = predict_price_all(chicken_path, 'p7_8')
+    chicken_price_9_10 = predict_price_all(chicken_path, 'p9_10')
+    chicken_price_11 = predict_price_all(chicken_path, 'p11')
+    chicken_price_12 = predict_price_all(chicken_path, 'p12')
+    chicken_price_13_16 = predict_price_all(chicken_path, 'p13_16')
+    
+    return render_template('structure_test.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken,
+    chicken_price_5_6=chicken_price_5_6, chicken_price_7_8=chicken_price_7_8, chicken_price_9_10=chicken_price_9_10,
+    chicken_price_11=chicken_price_11, chicken_price_12=chicken_price_12, chicken_price_13_16=chicken_price_13_16)
+
+
+#백엔드에서 가축발병현황 자동 크롤링
+@bp.route("/서비스명", methods=["GET", "POST"])
+def disease_crawling():
+    pass
+
+
+
+
+ 
+
 
 
 
