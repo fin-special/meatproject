@@ -90,6 +90,9 @@
             .attr("class","line")
             .style("stroke-width", 3)
             .style("fill", "none")
+
+          
+        
   
         // A function that update the chart
         function update(selectedGroup) {
