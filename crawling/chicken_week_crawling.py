@@ -9,7 +9,7 @@ import pymysql
 url = 'http://www.chicken.or.kr/ch_price/price01.php'
 res = requests.get(url)
 
-soup = BeautifulSoup(res.text)
+soup = BeautifulSoup(res.text, features="html.parser")
 
 
 mydb = pymysql.connect(
@@ -32,6 +32,8 @@ for i in range(5,-1,-1):
             chick_price_list.append(chick_price)
         except : 
             chick_price_list.append(chick_price)
+            # pass
+
 
     sql = "INSERT INTO chicken( date, 요일, 5_6호, 7_8호, 9_10호, 11호, 12호, 13_16호 ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     val = chick_price_list

@@ -1,5 +1,19 @@
 {% extends 'base.html' %}
 
+{% block title %}
+<!-- <a href="/" class="logo">
+	<span class="symbol"><img src="/static/css/images/logo.svg" alt="" /></span>
+</a> -->
+<a href="/" class="logo">
+	<span class="symbol"><img src="/static/css/images/logo.svg" alt="" /></span><span class="title"> 축산물 가격예측 </span>
+</a>
+<span class="logo"> > </span>
+<span class="logo">
+	<span class="symbol"><img src="/static/css/images/logo_chicken.png" alt="" /></span>
+	<span class="title"> 닭고기 </span>
+</span>
+{% endblock %}
+
 {% block styles%}
 <style>
 	html, body{
@@ -148,17 +162,18 @@
 			<div id="chicken"></div>
 		</section>
 
-		<!-- 빈 섹션 -->
+		<!-- 주간 예측 가격 테이블 섹션 -->
 		<section class="test">
+			<span style="font-weight: 900;text-decoration: none;  text-transform: uppercase;text-align: left;" > 주간 가격 예측 테이블 </span>
 			<br>
 			<table>
-				<tr>
+				<thead>
 				   <td></td>
 				   <th>1주차</th>
 				   <th>2주차</th>
 				   <th>3주차</th>
 				   <th>4주차</th>
-				</tr>
+				</thead>
 				<tr>
 				   <th>5-6호</th>
 				   <td>{{ chicken_price_5_6[0] }}</td>
@@ -209,7 +224,7 @@
 			<hr>
 			<header class="major">
 				<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 최근 1개월 간 AI 발병 수는 </span>
-				
+				<br>
 				<span style="color: #f08080; font-size: 3em; font-weight: 700;"> {{ case_cnt }} </span>
 				<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 건 입니다. </span>
 				<!-- <h2> 입니다. </h2> -->

@@ -141,14 +141,13 @@
           var mousecon = d3.selectAll("g.ch")
           var mouseG = mousecon.append("g")
           // var mouseG = svg.append("g")
-
                     .attr("class", "mouse-over-effects");
       
           var lines = document.getElementsByClassName('line');
         
-              
+          // 체크할 부분    
           var mousePerLine = mouseG.selectAll('.mouse-per-line')
-            .data(dataFilter)
+            .data(dataFilter)    //<<
             .enter()
             .append("g")
             .attr("class", "mouse-per-line");
@@ -164,9 +163,7 @@
             .attr("transform", "translate(10,3)");
       
           mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
-
             .attr('width',width) // can't catch mouse events on a g element
-
             .attr('height', height)
             .attr('fill', 'none')
             .attr('pointer-events', 'all')
@@ -199,8 +196,7 @@
                 .attr("transform", function(d, i) {
                   var xDate = x.invert(mouse[0]),
                       bisect = d3.bisector(function(d) { return d.ds; }).right;
-                      
-                      idx = bisect(d.price, xDate);
+                      idx = bisect(d.price, xDate);   //<<
                   
                   var beginning = 0,
                       end = lines[i].getTotalLength(),

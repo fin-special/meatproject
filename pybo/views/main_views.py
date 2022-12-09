@@ -3,6 +3,11 @@ from ..models import Newschicken, Newscow, Newspork, Disease_current
 from sqlalchemy import func
 import json
 from pybo.functions import predict_price, GetAiCnt, GetAiData, GetCnt, GetData, predict_price_all
+from crawling import cow_week_crawling, pork_week_crawling, chicken_week_crawling
+from apscheduler.schedulers.background import BackgroundScheduler    # apscheduler 라이브러리 선언
+import atexit
+import time
+
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -95,9 +100,24 @@ def test():
 
 
 #백엔드에서 가축발병현황 자동 크롤링
-@bp.route("/서비스명", methods=["GET", "POST"])
-def disease_crawling():
-    pass
+@bp.route("/backend", methods=["GET", "POST"])
+def now():
+    return time.strftime("%A, %d. %B %Y %I:%M:%S %p")
+
+def crawl_interval():
+
+
+    sched = BackgroundScheduler(daemon=True, timezone="Asia/Seoul")
+
+#     sched.add_job(func=chicken_week_crawling, trigger='interval', seconds=3)
+#     sched.add_job(func=cow_week_crawling, trigger='interval', seconds=3)
+#     sched.add_job(func=pork_week_crawling, trigger='interval', seconds=3)
+
+    sched.add_job(func=chicken_week_crawling, trigger='cron', week='1-53', day_of_week='6', hour='21')
+    sched.add_job(func=cow_week_crawling, trigger='cron', week='1-53', day_of_week='6', hour='21')
+    sched.add_job(func=pork_week_crawling, trigger='cron', week='1-53', day_of_week='6', hour='21')
+#     sched.start()
+#     atexit.register(lambda: sched.shutdown())
 
 
 

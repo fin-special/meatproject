@@ -9,7 +9,7 @@ import pymysql
 url = 'https://www.ekapepia.com/priceStat/distrPriceBeef.do?menuId=menu100033&boardInfoNo='
 res = requests.get(url)
 
-soup = BeautifulSoup(res.text)
+soup = BeautifulSoup(res.text , features="html.parser")
 
 
 mydb = pymysql.connect(
