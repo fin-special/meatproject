@@ -1,10 +1,13 @@
 from flask import Flask, render_template, jsonify, request
 # from model import test_model as model
-from flask_migrate import Migrate
+from flask_migrate import Migrate   
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from flask_cors import CORS, cross_origin
 from flask_ngrok import run_with_ngrok
+
+# from apscheduler.schedulers.background import BackgroundScheduler
+# from crawling import cow_week_crawling, pork_week_crawling, chicken_week_crawling
 
 import config
 
@@ -32,7 +35,11 @@ def create_app():
 
     return app
 
-
+# sched = BackgroundScheduler(daemon=True, timezone="Asia/Seoul")
+# sched.add_job(func=chicken_week_crawling, trigger='interval', seconds=3)
+# sched.add_job(func=cow_week_crawling, trigger='interval', seconds=3)
+# sched.add_job(func=pork_week_crawling, trigger='interval', seconds=3)
+# sched.start()
 
 # app = Flask(__name__)
 

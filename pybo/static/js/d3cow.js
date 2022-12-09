@@ -93,17 +93,16 @@
       
           var lines = document.getElementsByClassName('lines');
         
-              
+          // 체크할 부분    
           var mousePerLine = mouseG.selectAll('.mouse-per-line')
-            .data(data)
+            .data(data)     //<<
             .enter()
             .append("g")
             .attr("class", "mouse-per-line");
               
           mousePerLine.append("circle")
           .attr("r", 7)
-          .style("stroke", "#000"
-          )
+          .style("stroke", "#000")
           .style("fill", "none")
           .style("stroke-width", "1px")
           .style("opacity", "0");
@@ -145,7 +144,7 @@
                 .attr("transform", function(d, i) {
                   var xDate = x.invert(mouse[0]),
                       bisect = d3.bisector(function(d) { return d.ds; }).right;
-                      idx = bisect(d.yhat, xDate);
+                      idx = bisect(d.yhat, xDate);    //<<
                   
                   var beginning = 0,
                       end = lines[i].getTotalLength(),
