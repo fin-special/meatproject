@@ -73,10 +73,7 @@
             .style("stroke-width", 3)
             .style("fill", "none")
           
-        // A function that update the chart
-        function update() {
-    
-        
+
           // Give these new data to update line
           line
               .datum(data)
@@ -172,17 +169,8 @@
                   return "translate(" + mouse[0] + "," + pos.y +")";
                 });
             }); 
-        }
+          })
        
-             var t = document.getElementById('target');
-             t.addEventListener('click', function(){
-                 update()
-             });
-  
-      })
-    
-       
-            // run the updateChart function with this selected option
-        
+
     
     
