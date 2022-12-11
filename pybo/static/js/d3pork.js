@@ -94,10 +94,10 @@
        
             
                 
-            var tooltipDate = tooltip.append("div")
+            var tooltipDate = pork_tooltip.append("div")
                 .attr("class", "tooltip-date");
     
-            var tooltipLikes = tooltip.append("div");
+            var tooltipLikes = pork_tooltip.append("div");
             tooltipLikes.append("span")
                 .attr("class", "tooltip-title")
                 .text("Price: ");
