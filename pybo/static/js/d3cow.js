@@ -14,17 +14,26 @@
         .attr("class","cw")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
-    
+
+    // append the div for tooltip object
+    var tooltip = d3.select("#cow").append("div")
+            .attr("class", "tooltip")
+            .style("display", "none");
     //Read the data
     
     d3.json("./static/json/cow_predict_price.json", function(data) {
       
-        console.log(data)
+        
         var parseDate = d3.timeParse("%Y-%m-%d");
+            bisectDate = d3.bisector(function(d) { return d.ds; }).left,
+            formatValue = d3.format(",")
+            dateFormatter = d3.timeFormat("%m/%d/%y");
     
         // 날짜형식 parser
         data.forEach(function(d) {
           d.ds = parseDate(d.ds);
+          // 가격 소수점 제거
+          d.yhat = parseInt(d.yhat);
         });
 
        
@@ -36,13 +45,14 @@
         
         // Add X axis --> it is a date format
         var x = d3.scaleTime()
-            .domain(d3.extent(data, function(d) {return d.ds;}))
+            .domain([data[0].ds, data[data.length - 1].ds])
             .range([0, width])
         svg = d3.selectAll("g.cw")
         svg.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
-          .call(d3.axisBottom(x));
+          .call(d3.axisBottom(x)
+                  .tickFormat(dateFormatter));
         
         
         // Add Y axis
@@ -73,103 +83,49 @@
             .style("stroke-width", 3)
             .style("fill", "none")
           
-
-          // Give these new data to update line
-          line
-              .datum(data)
-              .transition()
-              .duration(1000)
-              
-              .attr("class","lines")
-              .attr("d", d3.line()
-                .curve(d3.curveNatural)
-                .x(function(d) { return x(+d.ds) })
-                .y(function(d) { return y(+d.yhat) })
-              )
-              .attr("stroke", function(d){ return myColor("yhat") })
-          var mousecon = d3.selectAll("g.cw")
-          var mouseG = mousecon.append("g")
-                    .attr("class", "mouse-over-effects");
-      
-          var lines = document.getElementsByClassName('lines');
         
-          // 체크할 부분    
-          var mousePerLine = mouseG.selectAll('.mouse-per-line')
-            .data(data)     //<<
-            .enter()
-            .append("g")
-            .attr("class", "mouse-per-line");
-              
-          mousePerLine.append("circle")
-          .attr("r", 7)
-          .style("stroke", "#000")
-          .style("fill", "none")
-          .style("stroke-width", "1px")
-          .style("opacity", "0");
-      
-          mousePerLine.append("text")
-            .attr("transform", "translate(10,3)");
-      
-          mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
-            .attr('width', width) // can't catch mouse events on a g element
-            .attr('height', height)
-            .attr('fill', 'none')
-            .attr('pointer-events', 'all')
-            .on('mouseout', function() { // on mouse out hide line, circles and text
-              d3.select(".mouse-line")
-                .style("opacity", "0");
-              d3.selectAll(".mouse-per-line circle")
-                .style("opacity", "0");
-              d3.selectAll(".mouse-per-line text")
-                .style("opacity", "0");
-            })
-            .on('mouseover', function() { // on mouse in show line, circles and text
-              d3.select(".mouse-line")
-                .style("opacity", "1");
-              d3.selectAll(".mouse-per-line circle")
-                .style("opacity", "1");
-              d3.selectAll(".mouse-per-line text")
-                .style("opacity", "1");
-            })
-            .on('mousemove', function() { // mouse moving over canvas
-              var mouse = d3.mouse(this);
-              d3.select(".mouse-line")
-                .attr("d", function() {
-                  var d = "M" + mouse[0] + "," + height;
-                  d += " " + mouse[0] + "," + 0;
-                  return d;
-                });
-              
-              d3.selectAll(".mouse-per-line")
-                .attr("transform", function(d, i) {
-                  var xDate = x.invert(mouse[0]),
-                      bisect = d3.bisector(function(d) { return d.ds; }).right;
-                      idx = bisect(d.yhat, xDate);    //<<
-                  
-                  var beginning = 0,
-                      end = lines[i].getTotalLength(),
-                      target = null;
-              
-                  while (true){
-                    target = Math.floor((beginning + end) / 2);
-                    pos = lines[i].getPointAtLength(target);
-                    if ((target === end || target === beginning) && pos.x !== mouse[0]) {
-                        break;
-                    }
-                    if (pos.x > mouse[0])      end = target;
-                    else if (pos.x < mouse[0]) beginning = target;
-                    else break; //position found
-                  }
-                  
-                  d3.select(this).select('text')
-                    .text(y.invert(pos.y).toFixed(2));
-                    
-                  
-                  return "translate(" + mouse[0] + "," + pos.y +")";
-                });
-            }); 
-          })
+        // append hovering mousecursor circle
+        var focus = svg.append("g")
+            .attr("class", "focus")
+            .style("display", "none");
+
+            focus.append("circle")
+                .attr("r", 5);
        
+        
+            var tooltipDate = tooltip.append("div")
+                .attr("class", "tooltip-date");
+    
+            var tooltipLikes = tooltip.append("div");
+            tooltipLikes.append("span")
+                .attr("class", "tooltip-title")
+                .text("Price: ");
+    
+            var tooltipLikesValue = tooltipLikes.append("span")
+                .attr("class", "tooltip-likes");
+    
+         
+    
+            svg.append("rect")
+                .attr("class", "overlay")
+                .attr("width", width)
+                .attr("height", height)
+                .on("mouseover", function() { focus.style("display", null); })
+                .on("mouseout", function() { focus.style("display", "none"); })
+                .on("mousemove", mousemove);
+    
+            function mousemove() {
+                var x0 = x.invert(d3.mouse(this)[0]),
+                    i = bisectDate(data, x0, 1),
+                    d0 = data[i - 1],
+                    d1 = data[i],
+                    d = x0 - d0.ds > d1.ds - x0 ? d1 : d0;
+                focus.attr("transform", "translate(" + x(d.ds) + "," + y(d.yhat) + ")");
+                tooltip.attr("style", "left:" + x(d.ds)-100 + "px;top:" );
+                tooltip.select(".tooltip-date").text(dateFormatter(d.ds));
+                tooltip.select(".tooltip-likes").text(formatValue(d.yhat));
+            }
+        });
 
     
     
