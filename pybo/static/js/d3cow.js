@@ -16,7 +16,7 @@
               "translate(" + margin.left + "," + margin.top + ")");
 
     // append the div for tooltip object
-    var tooltip = d3.select("#cow").append("div")
+    var cow_tooltip = d3.select("#cow").append("div")
             .attr("class", "tooltip")
             .style("display", "none");
     //Read the data
@@ -58,9 +58,9 @@
         // Add Y axis
         var y = d3.scaleLinear()
           .domain( [d3.min(data.map(function(d){
-                return d.yhat
+                return d.yhat - 500
             })), d3.max(data.map(function(d){
-                return d.yhat
+                return d.yhat + 500
             }))])
           .range([ height, 0 ]);
         svg.append("g")
@@ -68,8 +68,8 @@
           .call(d3.axisLeft(y));
     
         
-        // Initialize line with group a
-        var line =  svg
+        // draw a line
+        svg
           .append('g')
           .append("path")
             .datum(data)
@@ -92,16 +92,16 @@
             focus.append("circle")
                 .attr("r", 5);
        
-        
-            var tooltipDate = tooltip.append("div")
+            //tooltipDate
+             cow_tooltip.append("div")
                 .attr("class", "tooltip-date");
     
-            var tooltipLikes = tooltip.append("div");
+            var tooltipLikes = cow_tooltip.append("div");
             tooltipLikes.append("span")
                 .attr("class", "tooltip-title")
                 .text("Price: ");
-    
-            var tooltipLikesValue = tooltipLikes.append("span")
+            //tooltip-likes
+             tooltipLikes.append("span")
                 .attr("class", "tooltip-likes");
     
          
@@ -121,9 +121,9 @@
                     d1 = data[i],
                     d = x0 - d0.ds > d1.ds - x0 ? d1 : d0;
                 focus.attr("transform", "translate(" + x(d.ds) + "," + y(d.yhat) + ")");
-                tooltip.attr("style", "left:" + x(d.ds)-100 + "px;top:" );
-                tooltip.select(".tooltip-date").text(dateFormatter(d.ds));
-                tooltip.select(".tooltip-likes").text(formatValue(d.yhat));
+                cow_tooltip.attr("style", "left:" + x(d.ds)-100 + "px;top:" );
+                cow_tooltip.select(".tooltip-date").text(dateFormatter(d.ds));
+                cow_tooltip.select(".tooltip-likes").text(formatValue(d.yhat));
             }
         });
 

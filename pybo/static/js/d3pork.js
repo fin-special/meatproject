@@ -58,9 +58,9 @@
         // Add Y axis
         var y = d3.scaleLinear()
           .domain( [d3.min(data.map(function(d){
-                return d.yhat
+                return d.yhat - 300
             })), d3.max(data.map(function(d){
-                return d.yhat
+                return d.yhat + 300
             }))])
           .range([ height, 0 ]);
         svg.append("g")
