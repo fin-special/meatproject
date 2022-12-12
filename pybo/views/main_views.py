@@ -4,7 +4,7 @@ from sqlalchemy import func
 import json
 from pybo.functions import predict_price, GetAiCnt, GetAiData, GetCnt, GetData, predict_price_all
 from crawling import cow_week_crawling, pork_week_crawling, chicken_week_crawling
-from apscheduler.schedulers.background import BackgroundScheduler    # apscheduler 라이브러리 선언
+# from apscheduler.schedulers.background import BackgroundScheduler    # apscheduler 라이브러리 선언
 import atexit
 import time
 
