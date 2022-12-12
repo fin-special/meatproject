@@ -130,11 +130,11 @@ body {
 	display: none;
 }
 
-/* .line {
+.line {
 	fill: none;
 	stroke: steelblue;
 	stroke-width: 1.5px;
-} */
+}
 
 .overlay {
 	fill: none;
@@ -164,17 +164,17 @@ body {
 
 
 
-/* .tooltip div {
+.tooltip div {
 	margin: 3px 0;
-} */
+}
 
 .tooltip-date, .tooltip-likes {
 	font-weight: bold;
 }
 
-.tooltip-datea, .tooltip-likesa {
+/* .tooltip-datea, .tooltip-likesa {
 	font-weight: bold;
-}
+} */
 
 
 /* Type */
@@ -3427,4 +3427,11 @@ body {
 				padding: 0 1.25em;
 			}
 
+		}
+
+
+	#pagination a {
+		display:inline-block;
+		margin-right:5px;
+		cursor:pointer;
 		}

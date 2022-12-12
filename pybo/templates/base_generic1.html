@@ -97,30 +97,7 @@
 	}
 </style>
 <script>
-	document.addEventListener('DOMContentLoaded', ()=>{
-		var interval = window.setInterval(rollingCallback, 3000);
-	})
-	function rollingCallback(){
-		//.prev 클래스 삭제
-		document.querySelector('.rollingbanner .prev').classList.remove('prev');
 
-		//.current -> .prev
-		let current = document.querySelector('.rollingbanner .current');
-		current.classList.remove('current');
-		current.classList.add('prev');
-
-		//.next -> .current
-		let next = document.querySelector('.rollingbanner .next');
-		//다음 목록 요소가 널인지 체크
-		if(next.nextElementSibling == null){
-			document.querySelector('.rollingbanner ul li:first-child').classList.add('next');
-		}else{
-			//목록 처음 요소를 다음 요소로 선택
-			next.nextElementSibling.classList.add('next');
-		}
-		next.classList.remove('next');
-		next.classList.add('current');
-	}
 </script>
 {% endblock %}
 
@@ -230,7 +207,6 @@
 		<hr>
 		<!-- ai현황알리미  섹션-->
 		<section class="special">
-			
 			<header class="major">
 				<div>
 					<div  style="width:100%;">
@@ -242,14 +218,10 @@
 							<img src="/static/css/images/map_01.png" style="width:4em; height:4em; vertical-align: middle;">
 						</a>
 					</div>
-
 				</div>
-
-
-				
 			</header>
 			
-			<table >
+			<table class="table" id="disease">
 				<thead>
 					<th style="width: 27%;">발병일자</th>
 					<th>주소</th>
@@ -265,8 +237,10 @@
 				{% endfor %}
 				</tbody>
 			</table>
-			
-
+			<br>
+			<ul class="pagination">
+    
+			</ul>
 		</section>
 
 

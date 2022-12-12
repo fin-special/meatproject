@@ -23,7 +23,7 @@ def GetAiCnt(model):
 
 # 조류독감 발병현황
 def GetAiData(model):
-    data = model.query.filter(model.ds_nm.like('고병원성%')).filter(model.date >= func.ADDDATE(func.NOW(), -30)).order_by(model.date.desc()).limit(5)
+    data = model.query.filter(model.ds_nm.like('고병원성%')).filter(model.date >= func.ADDDATE(func.NOW(), -30)).order_by(model.date.desc()).all()
     return data
 
 # 소, 돼지 발병 갯수
