@@ -143,7 +143,7 @@
                      d1 = data[i],
                      d = x0 - d0.ds > d1.ds - x0 ? d1 : d0;
                  focus.attr("transform", "translate(" + x(d.ds) + "," + y(d.p5_6) + ")");
-                 chicken_tooltip.attr("style", "left:" + x(d.ds)-100 + "px;top:" );
+                 chicken_tooltip.attr("style", "left:" + (x(d.ds) +500) + "px;top:"+ (y(d.p5_6)+300) + "px;"  );
                  chicken_tooltip.select(".tooltip-date").text(dateFormatter(d.ds));
                  chicken_tooltip.select(".tooltip-likes").text(formatValue(d.p5_6));
              }
@@ -176,7 +176,7 @@
               .datum(dataFilter)
               .transition()
 
-              .duration(2000)
+              .duration(1000)
               .attr("class","line")
               .attr("d", d3.line()
                 .curve(d3.curveNatural)
@@ -202,7 +202,7 @@
                       d1 = dataFilter[i],
                       d = x0 - d0.ds > d1.ds - x0 ? d1 : d0;
                   focus.attr("transform", "translate(" + x(d.ds) + "," + y(d.price) + ")");
-                  chicken_tooltip.attr("style", "left:" + x(d.ds)-100 + "px;top:" );
+                  chicken_tooltip.attr("style", "left:" + (x(d.ds) +500) + "px;top:"+ (y(d.price)+300) + "px;"  );
                   chicken_tooltip.select(".tooltip-date").text(dateFormatter(d.ds));
                   chicken_tooltip.select(".tooltip-likes").text(formatValue(d.price));
               }
