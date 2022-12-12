@@ -15,7 +15,7 @@
 		<script src="https://d3js.org/d3.v4.js"></script>
 		<!-- Color Scale -->
 		<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-		<link rel="stylesheet" href="/static/css/main.css" />
+		<link rel="stylesheet" href="/static/css/main_origin.css" />
 
 		<noscript><link rel="stylesheet" href="/static/css/noscript.css" /></noscript>
 		{% block styles %}
@@ -51,7 +51,7 @@
 						<h2>Menu</h2>
 						<ul>
 							<li><a href="/">Home</a></li>
-							<li><a href="/">About Us</a></li>
+							<li><a href="/aboutus">About Us</a></li>
 							<li><a href="/chicken">닭</a></li>
 							<li><a href="/cow">소</a></li>
 							<li><a href="/pig">돼지</a></li>
@@ -65,65 +65,10 @@
 
 					{% endblock %}
 				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner">
-							<section>
-								<h2>Get in touch</h2>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<input type="text" name="name" id="name" placeholder="Name" />
-										</div>
-										<div class="field half">
-											<input type="email" name="email" id="email" placeholder="Email" />
-										</div>
-										<div class="field">
-											<textarea name="message" id="message" placeholder="Message"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send" class="primary" /></li>
-									</ul>
-								</form>
-							</section>
-							
-							<section>
-								<h2>Follow</h2>
-								<ul class="icons">
-									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
-									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
-									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
-								</ul>
-							</section>
-							<section>
-								<h2>References</h2>
-								<ul class="icons">
-									<li><a href="#"><img src="/static/css/images/ref_logo_01.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_02.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_03.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_04.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_05.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_06.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_07.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_08.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_09.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_10.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_11.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
-									<li><a href="#"><img src="/static/css/images/ref_logo_12.png" alt="ref_logo_01.png" style="width:150px; height: 50px;"></a></li>
+					{% block footer %}
 
-								</ul>
-							</section>
-							<ul class="copyright">
-								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-								<li>한국품질재단 빅데이터 분석가 양성과정</li>
-							</ul>
-						</div>
-					</footer>
+					{% endblock %}
+
 
 			</div>
 
@@ -134,10 +79,10 @@
 			<script  type="text/javascript" src="/static/js/jquery.min.js"></script>   
 			<script  type="text/javascript" src="/static/js/browser.min.js"></script>
 			<script  type="text/javascript" src="/static/js/breakpoints.min.js"></script>
-			<script  type="text/javascript" src="/static/js/util.js"></script> -->
+			<script  type="text/javascript" src="/static/js/util.js"></script>
 			<script  type="text/javascript" src="/static/js/main.js"></script>
 
 
 
 	</body>
-</html>
+</html> 

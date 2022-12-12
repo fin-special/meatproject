@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 
+{% block title %}
+<a href="/" class="logo">
+	<span class="symbol"><img src="/static/css/images/home.svg" alt="" /></span><span class="title"> 축산물 가격예측 서비스 </span>
+</a>
+<span class="logo" style="margin-left: .5em;"> | </span>
+<span class="logo">
+	<span class="title"> 돼지고기 </span><span class="symbol"><img src="/static/css/images/logo2_pig.png" alt="/static/css/images/logo2_pork.png" style="size:2em"/></span>
+</span>
+{% endblock %}
+
 {% block styles %}
 <style>
 	html, body{
@@ -115,10 +125,9 @@
 {% endblock %}
 
 {% block content %}
+
 <div id="main">
-	<!-- <div id="pagename" class="inner">
-		<h1> 제목부분 =  돼지고기 페이지가 될겁니다. </h1>
-	</div> -->
+
 	<div class="inner">
 		<!-- 뉴스기사 배너 -->
 		<section class="special">
@@ -148,22 +157,62 @@
 			<div id="pork"></div>
 		</section>
 	
+		<!-- 금주의 가격 -->
+		<section class="special" style="font-size: 1.5rem; font-weight: 900; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.2em;">
+			<span> 금주의 예상 돼지고기 가격은 {{ pork_price[0] }} 원 입니다 </span>
+			<span style="font-size: 0.8rem; letter-spacing: 0;">(원/kg)</span>
+		</section>
+
+		<!-- 주간 예측가격 테이블 지승 ver -->
+		<section class="special">
+			<a href=#none id="show"
+			   style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"
+			   onclick="if(hide.style.display=='none') {hide.style.display='';show.innerText='접기 ▲'} else {hide.style.display='none';show.innerText='펼쳐보기 ▼'}">펼쳐보기 ▼</a>
+   
+			<div id="hide" style="display: none">
+			   <table>
+				  <br>
+				  <thead>
+					 <td></td>
+					 <th>1주 후</th>
+					 <th>2주 후</th>
+					 <th>3주 후</th>
+					 <th>4주 후</th>
+				  </thead>
+				  <tr>
+					 <th>돼지고기 예상가격</th>
+					 <td>{{ pork_price[0] }}</td>
+					 <td>{{ pork_price[1] }}</td>
+					 <td>{{ pork_price[2] }}</td>
+					 <td>{{ pork_price[3] }}</td>
+				  </tr>
+			   </table>
+			   <p style="text-align: right; font-size: 0.8rem;">단위(원/kg)</p>
+			</div>
+		</section>
+		<br>
     <!-- ai현황알리미 섹션 -->
         <section class="special">
             
             <header class="major">
-                <span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 최근 1개월 간 돼지 질병 발병 수는 </span>
-                <br>
-                <span style="color: #f08080; font-size: 3em; font-weight: 700;"> {{ case_cnt }} </span>
-                <span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 건 입니다. </span>
-                <!-- <h2> 입니다. </h2> -->
+				<div>
+					<div align="left" style="width:100%;">
+						<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.2em; margin-left: 2em;"> 최근 1개월 간 돼지 질병 발병은 </span>
+						<a href='https://www.mafra.go.kr/FMD-AI2/map/ASF/ASF_map.jsp' target='_blank' style="color: #6FCC98; font-size: 3em; font-weight: 700;"> {{ case_cnt }} </a>
+						<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.2em;"> 건 입니다. </span>
+						<!-- 지도 바로가기 아이콘 -->
+						<a style="float: right;" href="https://www.mafra.go.kr/FMD-AI2/map/ASF/ASF_map.jsp" target="_blank">
+							<img src="/static/css/images/map_01.png" style="width:4em; height:4em; vertical-align: middle;">
+						</a>
+					</div>
+				</div>
             </header>
             
             <table >
                 <thead>
                     <th style="width: 27%;">발병일자</th>
                     <th>주소</th>
-					<th>질병명</th>
+					<th style="width: 27%">질병명</th>
 					
                 </thead>
                 <tbody>
@@ -176,16 +225,9 @@
                 {% endfor %}
                 </tbody>
             </table>
-            
-            <button onclick="window.open('https://www.mafra.go.kr/FMD-AI2/map/ASF/ASF_map.jsp')" target='_blank' style="margin: 0 0 0.2em 0;">
-                아프리카돼지열병 발병현황 지도 
-            </button>
+
         </section>
 
-		<!-- 빈 섹션-->
-		<section class="special">nth-child(2)
-			<a>해당 섹션에서는 주간예측가격표가 들어갈 예정입니다.</a>
-		</section>	
     </div>
 </div>
 {% endblock %}
