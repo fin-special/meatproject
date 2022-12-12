@@ -48,7 +48,7 @@ def base_generic1():
     chicken_price_12 = predict_price_all(chicken_path, 'p12')
     chicken_price_13_16 = predict_price_all(chicken_path, 'p13_16')
     
-    return render_template('base_generic1.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken,
+    return render_template('base_chicken.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken,
     chicken_price_5_6=chicken_price_5_6, chicken_price_7_8=chicken_price_7_8, chicken_price_9_10=chicken_price_9_10,
     chicken_price_11=chicken_price_11, chicken_price_12=chicken_price_12, chicken_price_13_16=chicken_price_13_16)
 
@@ -64,7 +64,7 @@ def base_generic2():
 
     cow_price = predict_price_all(cow_path, 'yhat')
 
-    return render_template('base_generic2.html', showfive=showfive, case_cnt=case_cnt, news_cow=news_cow, cow_price=cow_price)
+    return render_template('base_cow.html', showfive=showfive, case_cnt=case_cnt, news_cow=news_cow, cow_price=cow_price)
 
 
 
@@ -78,7 +78,7 @@ def base_generic3():
 
     pork_price = predict_price_all(pork_path, 'yhat')
 
-    return render_template('base_generic3.html', showfive=showfive, case_cnt=case_cnt, news_pork=news_pork, pork_price=pork_price)
+    return render_template('base_pork.html', showfive=showfive, case_cnt=case_cnt, news_pork=news_pork, pork_price=pork_price)
 
 
 
