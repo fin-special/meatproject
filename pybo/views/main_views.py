@@ -21,12 +21,16 @@ def main():
     cow_path = "pybo\static\json\cow_predict_price.json"
     pork_path = "pybo\static\json\pork_predict_price.json"
 
-    chicken_price = predict_price(chicken_path, 'p9_10')
-    cow_price = predict_price(cow_path, 'yhat')
-    pork_price = predict_price(pork_path, 'yhat')
+    chicken_price = format(predict_price(chicken_path, 'p9_10'), ',d')
+    cow_price = format(predict_price(cow_path, 'yhat'), ',d')
+    pork_price = format(predict_price(pork_path, 'yhat'), ',d')
 
     return render_template('base_index.html', chicken_price=chicken_price, cow_price=cow_price, pork_price=pork_price)
 
+# About Us 페이지----------------------------------------------------------------------------------
+@bp.route('/aboutus', methods=["GET"])
+def aboutus():
+    return render_template('aboutus.html')
 
 
 # 닭고기 페이지------------------------------------------------------------------------------------
@@ -56,8 +60,11 @@ def base_generic2():
     case_cnt = GetCnt(Disease_current,'소')
     showfive = GetData(Disease_current,'소')
     news_cow = Newscow.query.all()
+    cow_path = 'pybo\static\json\cow_predict_price.json'
 
-    return render_template('base_generic2.html', showfive=showfive, case_cnt=case_cnt, news_cow=news_cow)
+    cow_price = predict_price_all(cow_path, 'yhat')
+
+    return render_template('base_generic2.html', showfive=showfive, case_cnt=case_cnt, news_cow=news_cow, cow_price=cow_price)
 
 
 
@@ -67,8 +74,11 @@ def base_generic3():
     case_cnt = GetCnt(Disease_current,'돼지')
     showfive = GetData(Disease_current,'돼지')
     news_pork = Newspork.query.all()
+    pork_path = 'pybo\static\json\pork_predict_price.json'
 
-    return render_template('base_generic3.html', showfive=showfive, case_cnt=case_cnt, news_pork=news_pork)
+    pork_price = predict_price_all(pork_path, 'yhat')
+
+    return render_template('base_generic3.html', showfive=showfive, case_cnt=case_cnt, news_pork=news_pork, pork_price=pork_price)
 
 
 

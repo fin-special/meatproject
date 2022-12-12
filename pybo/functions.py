@@ -51,55 +51,62 @@ def predict_price_all(filepath, column):
             meat_sum.append(data[i][column])
             meat_avg += meat_sum[i]
 
-            if len(meat_sum) % 7 == 0:
-                meat_avg = int(meat_avg/7)    
-                meat_list.append(meat_avg)
+            if (i+1) % 7 == 0:
+                meat_avg = int(meat_avg/7)
+                meat_list.append(format(meat_avg, ',d'))
+                meat_avg = 0
         
         if column == 'p7_8':
             meat_sum.append(data[i][column])
             meat_avg += meat_sum[i]
 
-            if len(meat_sum) % 7 == 0:
-                meat_avg = int(meat_avg/7)    
-                meat_list.append(meat_avg)
+            if (i+1) % 7 == 0:
+                meat_avg = int(meat_avg/7)
+                meat_list.append(format(meat_avg, ',d'))
+                meat_avg = 0
 
         if column == 'p9_10':
             meat_sum.append(data[i][column])
             meat_avg += meat_sum[i]
 
-            if len(meat_sum) % 7 == 0:
-                meat_avg = int(meat_avg/7)    
-                meat_list.append(meat_avg)
+            if (i+1) % 7 == 0:
+                meat_avg = int(meat_avg/7)
+                meat_list.append(format(meat_avg, ',d'))
+                meat_avg = 0
 
         if column == 'p11':
             meat_sum.append(data[i][column])
             meat_avg += meat_sum[i]
 
-            if len(meat_sum) % 7 == 0:
-                meat_avg = int(meat_avg/7)    
-                meat_list.append(meat_avg)
+            if (i+1) % 7 == 0:
+                meat_avg = int(meat_avg/7)
+                meat_list.append(format(meat_avg, ',d'))
+                meat_avg = 0
 
         if column == 'p12':
             meat_sum.append(data[i][column])
             meat_avg += meat_sum[i]
 
-            if len(meat_sum) % 7 == 0:
-                meat_avg = int(meat_avg/7)    
-                meat_list.append(meat_avg)
+            if (i+1) % 7 == 0:
+                meat_avg = int(meat_avg/7)
+                meat_list.append(format(meat_avg, ',d'))
+                meat_avg = 0
 
         if column == 'p13_16':
             meat_sum.append(data[i][column])
             meat_avg += meat_sum[i]
 
-            if len(meat_sum) % 7 == 0:
-                meat_avg = int(meat_avg/7)    
-                meat_list.append(meat_avg)
+            if (i+1) % 7 == 0:
+                meat_avg = int(meat_avg/7)
+                meat_list.append(format(meat_avg, ',d'))
+                meat_avg = 0
 
         if column == 'yhat':
             meat_sum.append(data[i][column])
             meat_avg += meat_sum[i]
 
-            if len(meat_sum) % 7 == 0:
+            if (i+1) % 7 == 0:
                 meat_avg = int(meat_avg/7)
-                meat_list.append(meat_avg)
+                meat_list.append(format(meat_avg, ',d'))
+                meat_avg = 0
     return meat_list
