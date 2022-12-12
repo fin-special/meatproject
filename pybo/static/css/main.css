@@ -92,11 +92,11 @@ body {
 	display: none;
 }
 
-/* .line {
+.line {
 	fill: none;
 	stroke: steelblue;
 	stroke-width: 1.5px;
-} */
+}
 
 .overlay {
 	fill: none;
@@ -107,7 +107,7 @@ body {
 	fill: steelblue;
 }
 
-.tooltip  {
+.tooltip {
 	width: 94px;
 	padding: 4px 10px;
 	border: 1px solid #aaa;
@@ -124,19 +124,15 @@ body {
 	transition: all 0.25s;
 }
 
-
-
-/* .tooltip div {
+.tooltip div {
 	margin: 3px 0;
-} */
+}
 
 .tooltip-date, .tooltip-likes {
 	font-weight: bold;
 }
 
-.tooltip-datea, .tooltip-likesa {
-	font-weight: bold;
-}
+
 
 /* Basic */
 
