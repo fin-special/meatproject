@@ -101,30 +101,6 @@
 	}
 </style>
 <script>
-	document.addEventListener('DOMContentLoaded', ()=>{
-		var interval = window.setInterval(rollingCallback, 3000);
-	})
-	function rollingCallback(){
-		//.prev 클래스 삭제
-		document.querySelector('.rollingbanner .prev').classList.remove('prev');
-
-		//.current -> .prev
-		let current = document.querySelector('.rollingbanner .current');
-		current.classList.remove('current');
-		current.classList.add('prev');
-
-		//.next -> .current
-		let next = document.querySelector('.rollingbanner .next');
-		//다음 목록 요소가 널인지 체크
-		if(next.nextElementSibling == null){
-			document.querySelector('.rollingbanner ul li:first-child').classList.add('next');
-		}else{
-			//목록 처음 요소를 다음 요소로 선택
-			next.nextElementSibling.classList.add('next');
-		}
-		next.classList.remove('next');
-		next.classList.add('current');
-	}
 </script>
 {% endblock %}
 
@@ -156,11 +132,11 @@
 				</div>
 			</div>
 			<br>
-			<!-- Initialize a select button -->
+			<!-- 드롭다운선택버튼 -->
 			<select id="selectButton"></select>
-			<!-- Create a div where the graph will take place -->
+			<!-- 그래프영역 -->
 			<div id="chicken"></div>
-		</section>
+		</section> 
 
 		<!-- 주간 예측 가격 테이블 섹션 -->
 		<!-- <section class="test">
@@ -229,8 +205,7 @@
 				<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"> 건 입니다. </span>
 				<!-- <h2> 입니다. </h2> -->
 			</header>
-				
-			<table >
+			<table class="table">
 				<thead>
 					<th style="width: 27%;">발병일자</th>
 					<th>주소</th>
@@ -244,12 +219,11 @@
 						<td>{{ case.ds_nm }}</td>
 					</tr>
 				{% endfor %}
-				</tbody>
+				</tbody>	
 			</table>
-			
-			<button onclick="window.open('https://www.mafra.go.kr/FMD-AI2/map/AI/AI_map.jsp')" target='_blank' style="margin: 0 0 0.2em 0;">
-				AI 발병현황 지도로 확인하기 
-			</button>
+			<ul class="pagination">
+    
+			</ul>
 		</section>
 
 	</div>
