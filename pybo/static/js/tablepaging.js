@@ -12,7 +12,7 @@ function pagination(){
             num_pages=Math.floor(num_pages++);
         }
 
-    jQuery('.pagination').append("<button class=\"prev\">Prev</button>");
+    // jQuery('.pagination').append("<button class=\"prev\">Prev</button>");
 
         for(var i=1; i<=num_pages; i++){
             jQuery('.pagination').append("<button>"+i+"</button>");
@@ -20,7 +20,7 @@ function pagination(){
             jQuery('.pagination a').addClass("pagination-link");
         }
 
-    jQuery('.pagination').append("<button class=\"next\">Next</button>");
+    // jQuery('.pagination').append("<button class=\"next\">Next</button>");
 
     $tr.each(function(i){
         jQuery(this).hide();
@@ -32,40 +32,43 @@ function pagination(){
     jQuery('.pagination button').click('.pagination-link', function(e){
         e.preventDefault();
         $tr.hide();
-        var page=jQuery(this).text();
+        var page=jQuery(this).text();   // 현재 페이지 번호 정의
         var prevpage=page-1;        //이전 페이지 번호 정의
-        var temp=page-1;
+        var temp=page-1;        // 페이지번호-1 정의 -> 버튼 위치 찾기위함
         var start=temp*req_num_row;
         var current_link = temp;
 
         jQuery('.pagination button').removeClass("active");
         jQuery(this).parent().addClass("active");
+        jQuery('.pagination button.disabled').removeClass("disabled");
+        jQuery(this).addClass("disabled")
         
-
+        
+        // 해당 위치부터 갯수만큼 보여주기
         for(var i=0; i< req_num_row; i++){
             $tr.eq(start+i).show();
         }
 
 
 
-        if(temp >= 1){
-            jQuery('.pagination button:first-child').removeClass("disabled");
-        }
-        else {
-            jQuery('.pagination button:first-child').addClass("disabled");
-        }
+        // if(temp >= 1){
+        //     jQuery('.pagination button:first-child').removeClass("disabled");
+        // }
+        // else {
+        //     jQuery('.pagination button:first-child').addClass("disabled");
+        // }
             
     });
-
-    jQuery('.prev').click(function(e){
-        e.preventDefault();
-        jQuery('.pagination button:first-child').removeClass("active");
-    });
-
-    jQuery('.next').click(function(e){
-        e.preventDefault();
-        jQuery('.pagination button:last-child').removeClass("active");
-    });
+    // 이전 버튼 클릭 동작
+    // jQuery('.prev').click(function(e){
+    //     e.preventDefault();
+    //     jQuery('.pagination button:first-child').removeClass("active");
+    // });
+    // // 다음 버튼 클릭 동작
+    // jQuery('.next').click(function(e){
+    //     e.preventDefault();
+    //     jQuery('.pagination button:last-child').removeClass("active");
+    // });
 
     }
 
