@@ -25,7 +25,7 @@ def main():
     cow_price = format(predict_price(cow_path, 'yhat'), ',d')
     pork_price = format(predict_price(pork_path, 'yhat'), ',d')
 
-    return render_template('base_index.html', chicken_price=chicken_price, cow_price=cow_price, pork_price=pork_price)
+    return render_template('main.html', chicken_price=chicken_price, cow_price=cow_price, pork_price=pork_price)
 
 # About Us 페이지----------------------------------------------------------------------------------
 @bp.route('/aboutus', methods=["GET"])
@@ -48,7 +48,8 @@ def base_generic1():
     chicken_price_12 = predict_price_all(chicken_path, 'p12')
     chicken_price_13_16 = predict_price_all(chicken_path, 'p13_16')
     
-    return render_template('base_chicken.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken,
+
+    return render_template('chicken.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken,
     chicken_price_5_6=chicken_price_5_6, chicken_price_7_8=chicken_price_7_8, chicken_price_9_10=chicken_price_9_10,
     chicken_price_11=chicken_price_11, chicken_price_12=chicken_price_12, chicken_price_13_16=chicken_price_13_16)
 
@@ -64,12 +65,13 @@ def base_generic2():
 
     cow_price = predict_price_all(cow_path, 'yhat')
 
-    return render_template('base_cow.html', showfive=showfive, case_cnt=case_cnt, news_cow=news_cow, cow_price=cow_price)
+    return render_template('cow.html', showfive=showfive, case_cnt=case_cnt, news_cow=news_cow, cow_price=cow_price)
+
 
 
 
 # 돼지고기 페이지------------------------------------------------------------------------------------
-@bp.route('/pig',  methods=["GET"])
+@bp.route('/pork',  methods=["GET"])
 def base_generic3():
     case_cnt = GetCnt(Disease_current,'돼지')
     showfive = GetData(Disease_current,'돼지')
@@ -78,7 +80,9 @@ def base_generic3():
 
     pork_price = predict_price_all(pork_path, 'yhat')
 
-    return render_template('base_pork.html', showfive=showfive, case_cnt=case_cnt, news_pork=news_pork, pork_price=pork_price)
+
+    return render_template('pork.html', showfive=showfive, case_cnt=case_cnt, news_pork=news_pork, pork_price=pork_price)
+
 
 
 
@@ -86,27 +90,6 @@ def base_generic3():
 @bp.route('/base', methods=["GET"])
 def base():
     return render_template('base.html')
-
-
-# 테스트용 페이지------------------------------------------------------------------------------------
-@bp.route('/test',  methods=["GET"])
-def test():
-    case_cnt = GetAiCnt(Disease_current)
-    showfive = GetAiData(Disease_current)
-    news_chicken = Newschicken.query.all()
-    
-    chicken_path = 'pybo\static\json\chicken_predict_price.json'
-
-    chicken_price_5_6 = predict_price_all(chicken_path, 'p5_6')
-    chicken_price_7_8 = predict_price_all(chicken_path, 'p7_8')
-    chicken_price_9_10 = predict_price_all(chicken_path, 'p9_10')
-    chicken_price_11 = predict_price_all(chicken_path, 'p11')
-    chicken_price_12 = predict_price_all(chicken_path, 'p12')
-    chicken_price_13_16 = predict_price_all(chicken_path, 'p13_16')
-    
-    return render_template('structure_test.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken,
-    chicken_price_5_6=chicken_price_5_6, chicken_price_7_8=chicken_price_7_8, chicken_price_9_10=chicken_price_9_10,
-    chicken_price_11=chicken_price_11, chicken_price_12=chicken_price_12, chicken_price_13_16=chicken_price_13_16)
 
 
 #백엔드에서 가축발병현황 자동 크롤링
@@ -129,8 +112,10 @@ def crawl_interval():
 #     sched.start()
 #     atexit.register(lambda: sched.shutdown())
 
-
-
+# 요소확인
+@bp.route("/elements", methods=["GET"])
+def element():
+    return render_template("elements.html")
 
  
 

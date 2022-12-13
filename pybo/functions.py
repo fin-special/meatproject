@@ -34,7 +34,7 @@ def GetCnt(model, keyword):
 
 # 소, 돼지 발병현황
 def GetData(model, keyword):
-    data = model.query.filter(model.animal.like(f'{keyword}%')).filter(model.date >= func.ADDDATE(func.NOW(), -30)).order_by(model.date.desc()).limit(5)
+    data = model.query.filter(model.animal.like(f'{keyword}%')).filter(model.date >= func.ADDDATE(func.NOW(), -30)).order_by(model.date.desc()).all()
     return data
 
 # 닭고기 가격 테이블

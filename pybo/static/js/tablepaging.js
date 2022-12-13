@@ -15,7 +15,7 @@ function pagination(){
     // jQuery('.pagination').append("<button class=\"prev\">Prev</button>");
 
         for(var i=1; i<=num_pages; i++){
-            jQuery('.pagination').append("<button>"+i+"</button>");
+            jQuery('.pagination').append("<button class='page'>"+i+"</button>");
             jQuery('.pagination button:nth-child(2)').addClass("active");
             jQuery('.pagination a').addClass("pagination-link");
         }
@@ -40,11 +40,13 @@ function pagination(){
 
         jQuery('.pagination button').removeClass("active");
         jQuery(this).parent().addClass("active");
+
+        // 버튼을 누를 때 현재페이지만 비활성화 상태로 전환
         jQuery('.pagination button.disabled').removeClass("disabled");
         jQuery(this).addClass("disabled")
         
         
-        // 해당 위치부터 갯수만큼 보여주기
+        // 각 tr을 해당 위치부터 지정된 갯수만큼 보여주기
         for(var i=0; i< req_num_row; i++){
             $tr.eq(start+i).show();
         }

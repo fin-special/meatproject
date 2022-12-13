@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<a href="/" class="logo">
+	<span class="symbol"><img src="/static/css/images/home.svg" alt="" /></span><span class="title"> 축산물 가격예측 서비스 </span>
+</a>
+<span class="logo" style="margin-left: .5em;"> | </span>
+<span class="logo">
+	<span class="title"> 소고기 </span><span class="symbol"><img src="/static/css/images/logo2_cow.png" alt="/static/css/images/logo2_cow.png" style="size:2em"/></span>
+</span>
+{% endblock %}
+
+{% block content %}
+
+<div id="main">
+
+	<div class="inner">
+		<!-- 뉴스기사 배너 -->
+		<section class="special">
+			<div class="container">
+				<div class="rollingbanner" id="First">
+					<div class="title" , style="font-size: 1rem;"> 금주의 이슈 > </div>
+					<div class="wrap">
+						<ul>
+							<li class="current"><a href="{{ news_cow[-10].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_cow[-10].title }} </a></li>
+							<li class="prev"><a href="{{ news_cow[-9].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_cow[-9].title }} </a></li>
+							<li class="next"><a href="{{ news_cow[-8].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_cow[-8].title }} </a></li>
+							<li><a href="{{ news_cow[-7].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_cow[-7].title }} </a></li>
+							<li><a href="{{ news_cow[-6].url }}", style="font-size: 1rem;", target="'_blank">{{ news_cow[-6].title }}</a></li>
+							<li><a href="{{ news_cow[-5].url }}", style="font-size: 1rem;", target="'_blank">{{ news_cow[-5].title }}</a></li>
+							<li><a href="{{ news_cow[-4].url }}", style="font-size: 1rem;", target="'_blank">{{ news_cow[-4].title }}</a></li>
+							<li><a href="{{ news_cow[-3].url }}", style="font-size: 1rem;", target="'_blank">{{ news_cow[-3].title }}</a></li>
+							<li><a href="{{ news_cow[-2].url }}", style="font-size: 1rem;", target="'_blank">{{ news_cow[-2].title }}</a></li>
+							<li><a href="{{ news_cow[-1].url }}", style="font-size: 1rem;", target="'_blank">{{ news_cow[-1].title }}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+       		<br>
+			<!-- <select id="selectButton"></select> -->
+			<!-- Create a div where the graph will take place -->
+			<div id="cow"></div>
+		</section>
+
+		<!-- 금주의 가격 -->
+		<section class="special" style="font-size: 1.5rem; font-weight: 900; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.2em;">
+			<span> 금주의 예상 소고기 가격은 {{ cow_price[0] }} 원 입니다 </span>
+			<span style="font-size: 0.8rem; letter-spacing: 0;">(원/kg)</span>
+		</section>
+
+		<!-- 주간 예측가격 테이블 지승 ver -->
+		<section class="special">
+			<a href=#none id="show"
+			   style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"
+			   onclick="if(hide.style.display=='none') {hide.style.display='';show.innerText='접기 ▲'} else {hide.style.display='none';show.innerText='펼쳐보기 ▼'}">펼쳐보기 ▼</a>
+   
+			<div id="hide" style="display: none">
+			   <table>
+				  <br>
+				  <thead>
+					 <td></td>
+					 <th>1주 후</th>
+					 <th>2주 후</th>
+					 <th>3주 후</th>
+					 <th>4주 후</th>
+				  </thead>
+				  <tr>
+					 <th>소고기 예상가격</th>
+					 <td>{{ cow_price[0] }}</td>
+					 <td>{{ cow_price[1] }}</td>
+					 <td>{{ cow_price[2] }}</td>
+					 <td>{{ cow_price[3] }}</td>
+				  </tr>
+			   </table>
+			   <p style="text-align: right; font-size: 0.8rem;">단위(원/kg)</p>
+			</div>
+		</section>
+		<br>
+    	<!-- ai현황알리미 -->
+        <section class="special">
+
+			<header class="major">
+				<div>
+					<div align="left" style="width:100%;">
+						<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.2em; margin-left: 2em;"> 최근 1개월 간 소 질병 발병은 </span>
+						<a  style="color: #6FCC98; font-size: 3em; font-weight: 700;"> {{ case_cnt }} </a>
+						<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.2em;"> 건 입니다. </span>
+						<!-- 지도 바로가기 아이콘 -->
+						<!-- <a style="float: right;" href="https://www.mafra.go.kr/FMD-AI2/map/AI/AI_map.jsp" target="_blank">
+							<img src="/static/css/images/map_01.png" style="width:4em; height:4em; vertical-align: middle;">
+						</a> -->
+					</div>
+				</div>
+            </header>
+
+            <table class="table" id="disease">
+                <thead>
+                    <th style="width: 27%;">발병일자</th>
+                    <th>주소</th>
+					<th style="width: 27%;">질병명</th>
+					
+                </thead>
+                <tbody>
+                {% for case in showfive %}
+                    <tr>
+                        <td>{{ case.date }}</td>
+                        <td>{{ case.addr }}</td>
+                        <td>{{ case.ds_nm }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+			<br>
+			<ul class="pagination">
+    
+			</ul>
+        </section>
+
+    </div>
+</div>
+{% endblock %}
