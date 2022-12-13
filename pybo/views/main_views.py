@@ -48,6 +48,7 @@ def base_generic1():
     chicken_price_12 = predict_price_all(chicken_path, 'p12')
     chicken_price_13_16 = predict_price_all(chicken_path, 'p13_16')
     
+
     return render_template('chicken.html', showfive=showfive, case_cnt=case_cnt, news_chicken=news_chicken,
     chicken_price_5_6=chicken_price_5_6, chicken_price_7_8=chicken_price_7_8, chicken_price_9_10=chicken_price_9_10,
     chicken_price_11=chicken_price_11, chicken_price_12=chicken_price_12, chicken_price_13_16=chicken_price_13_16)
@@ -68,6 +69,7 @@ def base_generic2():
 
 
 
+
 # 돼지고기 페이지------------------------------------------------------------------------------------
 @bp.route('/pork',  methods=["GET"])
 def base_generic3():
@@ -78,7 +80,9 @@ def base_generic3():
 
     pork_price = predict_price_all(pork_path, 'yhat')
 
+
     return render_template('pork.html', showfive=showfive, case_cnt=case_cnt, news_pork=news_pork, pork_price=pork_price)
+
 
 
 

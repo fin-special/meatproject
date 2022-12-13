@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<a href="/" class="logo">
+	<span class="symbol"><img src="/static/css/images/home.svg" alt="" /></span><span class="title"> 축산물 가격예측 서비스 </span>
+</a>
+<span class="logo" style="margin-left: .5em;"> | </span>
+<span class="logo">
+	<span class="title"> 닭고기 </span><span class="symbol"><img src="/static/css/images/logo2_chicken.png" alt="/static/css/images/logo2_chicken.png" style="size:2em"/></span>
+</span>
+{% endblock %}
+
+{% block styles%}
+<style>
+	html, body{
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+	}
+	.container{
+		display: flex;
+		height: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	/* 배너 컨테이너 */
+	.rollingbanner{
+		position: relative;
+		width: 100%;			/* 여기서 배너 가로길이 조절 */
+		height: 40px;
+		font-size: 1rem;
+		letter-spacing: -1px;
+		padding: 7px 15px;
+		box-sizing: border-box;
+		background-color: #6FCC98;
+		border-radius: 16px;
+		
+	}
+	/* 타이틀 */
+	.rollingbanner > .title{
+		font-weight: bold;
+		float: left;
+		padding-right: 10px;
+	}
+	/* 꼬리 */
+	.rollingbanner > .tail{
+		font-weight: bold;
+		float: right;
+		padding-right: 10px;
+	}
+	/* 롤링 배너 */
+	.rollingbanner > .wrap{
+		position: relative;
+		width: auto;
+		height: 100%;
+		box-sizing: border-box;
+		overflow: hidden;
+	}        
+	.rollingbanner ul{
+		list-style: none;
+	}
+	.rollingbanner li{
+		position: absolute;
+		top: -36px;
+		left: 0;
+	}
+	/* 이전, 현재, 다음 롤링 배너 표시 */
+	.rollingbanner li.prev{
+		top: 36px;
+		transition: top 0.5s ease;
+	}
+	.rollingbanner li.current{
+		top: 0;
+		transition: top 0.5s ease;
+	}
+	.rollingbanner li.next{
+		top: -36px;
+	}
+	.rollingbanner a{
+		display: block;
+		display: -webkit-box;
+		text-decoration: none;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient:vertical;
+		overflow: hidden;
+		color: rgb(255, 255, 255);
+	}
+	/* 반대 방향으로 진행 */
+	.rollingbanner.reverse li.prev{
+		top: -36px;
+		transition: top 0.5s ease;
+	}
+	.rollingbanner.reverse li.next{
+		top: 36px;
+	}
+</style>
+<script>
+
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="main">
+
+	<div class="inner">
+		<!-- 뉴스기사 배너 -->
+		<section class="special">
+			<div class="container">
+				<div class="rollingbanner" id="First">
+					<div class="title" , style="font-size: 1rem;"> 금주의 이슈 > </div>
+					<div class="wrap">
+						<ul>
+							<li class="current"><a href="{{ news_chicken[-10].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_chicken[-10].title }} </a></li>
+							<li class="prev"><a href="{{ news_chicken[-9].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_chicken[-9].title }} </a></li>
+							<li class="next"><a href="{{ news_chicken[-8].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_chicken[-8].title }} </a></li>
+							<li><a href="{{ news_chicken[-7].url }}", style="font-size: 1rem;", target="'_blank"> {{ news_chicken[-7].title }} </a></li>
+							<li><a href="{{ news_chicken[-6].url }}", style="font-size: 1rem;", target="'_blank">{{ news_chicken[-6].title }}</a></li>
+							<li><a href="{{ news_chicken[-5].url }}", style="font-size: 1rem;", target="'_blank">{{ news_chicken[-5].title }}</a></li>
+							<li><a href="{{ news_chicken[-4].url }}", style="font-size: 1rem;", target="'_blank">{{ news_chicken[-4].title }}</a></li>
+							<li><a href="{{ news_chicken[-3].url }}", style="font-size: 1rem;", target="'_blank">{{ news_chicken[-3].title }}</a></li>
+							<li><a href="{{ news_chicken[-2].url }}", style="font-size: 1rem;", target="'_blank">{{ news_chicken[-2].title }}</a></li>
+							<li><a href="{{ news_chicken[-1].url }}", style="font-size: 1rem;", target="'_blank">{{ news_chicken[-1].title }}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<br>
+			<!-- Initialize a select button -->
+			<select id="selectButton"></select>
+			<!-- Create a div where the graph will take place -->
+			<div id="chicken"></div>
+		</section>
+
+		<!-- 금주의 가격 -->
+		<section class="special" style="font-size: 1.3rem; font-weight: 900; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.2em;">
+			<span> 다음주의 예상 닭고기 가격은 </span>
+			<span style="color: #6FCC98;font-size: 2.8rem;"> {{ chicken_price_9_10[0] }} </span>
+			<span> 원 입니다 </span>
+			<span style="font-size: 0.8rem; letter-spacing: 0;">9~10호 기준(원/kg)</span>
+		</section>
+
+		<!-- 주간 예측가격 테이블 지승 ver -->
+		<section class="special">
+			<a href=#none id="show"
+			   style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.35em;"
+			   onclick="if(hide.style.display=='none') {hide.style.display='';show.innerText='접기 ▲'} else {hide.style.display='none';show.innerText='펼쳐보기 ▼'}">펼쳐보기 ▼</a>
+   
+			<div id="hide" style="display: none">
+			   <table>
+				  <br>
+				  <thead>
+					 <td></td>
+					 <th>1주 후</th>
+					 <th>2주 후</th>
+					 <th>3주 후</th>
+					 <th>4주 후</th>
+				  </thead>
+				  <tr>
+					 <th>5-6호</th>
+					 <td>{{ chicken_price_5_6[0] }}</td>
+					 <td>{{ chicken_price_5_6[1] }}</td>
+					 <td>{{ chicken_price_5_6[2] }}</td>
+					 <td>{{ chicken_price_5_6[3] }}</td>
+				  </tr>
+				  <tr>
+					 <th>7-8호</th>
+					 <td>{{ chicken_price_7_8[0] }}</td>
+					 <td>{{ chicken_price_7_8[1] }}</td>
+					 <td>{{ chicken_price_7_8[2] }}</td>
+					 <td>{{ chicken_price_7_8[3] }}</td>
+				  </tr>
+				  <tr>
+					 <th>9-10호</th>
+					 <td>{{ chicken_price_9_10[0] }}</td>
+					 <td>{{ chicken_price_9_10[1] }}</td>
+					 <td>{{ chicken_price_9_10[2] }}</td>
+					 <td>{{ chicken_price_9_10[3] }}</td>
+				  </tr>
+				  <tr>
+					 <th>11호</th>
+					 <td>{{ chicken_price_11[0] }}</td>
+					 <td>{{ chicken_price_11[1] }}</td>
+					 <td>{{ chicken_price_11[2] }}</td>
+					 <td>{{ chicken_price_11[3] }}</td>
+				  </tr>
+				  <tr>
+					 <th>12호</th>
+					 <td>{{ chicken_price_12[0] }}</td>
+					 <td>{{ chicken_price_12[1] }}</td>
+					 <td>{{ chicken_price_12[2] }}</td>
+					 <td>{{ chicken_price_12[3] }}</td>
+				  </tr>
+				  <tr>
+					 <th>13-16호</th>
+					 <td>{{ chicken_price_13_16[0] }}</td>
+					 <td>{{ chicken_price_13_16[1] }}</td>
+					 <td>{{ chicken_price_13_16[2] }}</td>
+					 <td>{{ chicken_price_13_16[3] }}</td>
+				  </tr>
+			   </table>
+			   <p style="text-align: right; font-size: 0.8rem;">단위(원/kg)</p>
+			</div>
+		</section>
+		<br>
+		<hr>
+		<!-- ai현황알리미  섹션-->
+		<section class="special">
+			<header class="major">
+				<div>
+					<div  style="width:100%;">
+						<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.2em;"> 최근 1개월 간 AI 발병은 </span>
+						<a href='https://www.mafra.go.kr/FMD-AI2/map/AI/AI_map.jsp' target='_blank' style="color: #6FCC98; font-size: 3em; font-weight: 700;"> {{ case_cnt }} </a>
+						<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.2em;">건 입니다. </span>
+						<!-- 지도 바로가기 아이콘 -->
+						<a style="float: right;" href="https://www.mafra.go.kr/FMD-AI2/map/AI/AI_map.jsp" target="_blank">
+							<img src="/static/css/images/map_01.png" style="width:4em; height:4em; vertical-align: middle;">
+						</a>
+					</div>
+				</div>
+			</header>
+			
+			<table class="table" id="disease">
+				<thead>
+					<th style="width: 27%;">발병일자</th>
+					<th>주소</th>
+					<th style="width: 27%;">질병명 </th>
+				</thead>
+				<tbody>
+				{% for case in showfive %}
+					<tr>
+						<td>{{ case.date }}</td>
+						<td>{{ case.addr }}</td>
+						<td>{{ case.ds_nm }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			<br>
+			<ul class="pagination">
+    
+			</ul>
+		</section>
+
+
+	</div>
+</div>
+{% endblock %}
