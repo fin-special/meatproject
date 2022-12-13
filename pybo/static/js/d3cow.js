@@ -121,11 +121,8 @@
                     d1 = data[i],
                     d = x0 - d0.ds > d1.ds - x0 ? d1 : d0;
                 focus.attr("transform", "translate(" + x(d.ds) + "," + y(d.yhat) + ")");
-                cow_tooltip.attr("style", "left:" + (x(d.ds) + 130) + "px;top:"+ (y(d.yhat) +200) + "px;" );
+                cow_tooltip.attr("style", "left:" + (x(d.ds) + 800) + "px;top:"+ (y(d.yhat) +200) + "px;" );
                 cow_tooltip.select(".tooltip-date").text(dateFormatter(d.ds));
                 cow_tooltip.select(".tooltip-likes").text(formatValue(d.yhat));
             }
         });
-
-    
-    

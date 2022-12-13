@@ -44,7 +44,9 @@
 
 		<!-- 금주의 가격 -->
 		<section class="special" style="font-size: 1.5rem; font-weight: 900; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.2em;">
-			<span> 금주의 예상 소고기 가격은 {{ cow_price[0] }} 원 입니다 </span>
+			<span> 다음주의 예상 소고기 가격은</span>
+			<span style="color: #6FCC98;font-size: 2.8rem;"> {{ cow_price[0] }} </span>
+			<span> 원 입니다 </span>
 			<span style="font-size: 0.8rem; letter-spacing: 0;">(원/kg)</span>
 		</section>
 
@@ -76,19 +78,19 @@
 			</div>
 		</section>
 		<br>
+		<hr>
     	<!-- ai현황알리미 -->
         <section class="special">
-
 			<header class="major">
 				<div>
 					<div align="left" style="width:100%;">
-						<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.2em; margin-left: 2em;"> 최근 1개월 간 소 질병 발병은 </span>
+						<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.2em;"> 최근 1개월 간 소 질병 발병은 </span>
 						<a  style="color: #6FCC98; font-size: 3em; font-weight: 700;"> {{ case_cnt }} </a>
 						<span style="font-weight: 900; line-height: 1.5; margin: 0 0 2em 0; text-transform: uppercase; letter-spacing: 0.2em;"> 건 입니다. </span>
 						<!-- 지도 바로가기 아이콘 -->
-						<!-- <a style="float: right;" href="https://www.mafra.go.kr/FMD-AI2/map/AI/AI_map.jsp" target="_blank">
+						<a style="float: right;" href="https://www.mafra.go.kr/FMD-AI2/map/AI/AI_map.jsp" target="_blank">
 							<img src="/static/css/images/map_01.png" style="width:4em; height:4em; vertical-align: middle;">
-						</a> -->
+						</a>
 					</div>
 				</div>
             </header>
