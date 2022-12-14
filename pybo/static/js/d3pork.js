@@ -37,10 +37,7 @@
         });
 
        
-        // A color scale: one color for each group
-        var myColor = d3.scaleOrdinal()
-          .domain("yhat")
-          .range(d3.schemeSet2);
+      
 
         
         // Add X axis --> it is a date format
@@ -78,7 +75,7 @@
               .x(function(d) { return x(+d.ds) })
               .y(function(d) { return y(+d.yhat) })
             )
-            .attr("stroke", function(d){ return myColor("yhat") })
+            .attr("stroke", "#90EE90")
             .attr("class","lines")
             .style("stroke-width", 3)
             .style("fill", "none")
