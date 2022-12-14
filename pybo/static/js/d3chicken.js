@@ -143,7 +143,7 @@
                      d1 = data[i],
                      d = x0 - d0.ds > d1.ds - x0 ? d1 : d0;
                  focus.attr("transform", "translate(" + x(d.ds) + "," + y(d.p5_6) + ")");
-                 chicken_tooltip.attr("style", "left:" + (x(d.ds) +700) + "px;top:"+ (y(d.p5_6)+300) + "px;"  );    // 툴팁위치 
+                 chicken_tooltip.attr("style", "left:" + (x(d.ds) +200) + "px;top:"+ (y(d.p5_6)+300) + "px;"  );    // 툴팁위치 
                  chicken_tooltip.select(".tooltip-date").text(dateFormatter(d.ds));
                  chicken_tooltip.select(".tooltip-likes").text(formatValue(d.p5_6));
              }

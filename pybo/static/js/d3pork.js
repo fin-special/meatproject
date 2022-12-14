@@ -119,7 +119,7 @@
                     d1 = data[i],
                     d = x0 - d0.ds > d1.ds - x0 ? d1 : d0;
                 focus.attr("transform", "translate(" + x(d.ds) + "," + y(d.yhat) + ")");
-                pork_tooltip.attr("style", "left:" + (x(d.ds)+700 ) + "px;top:"+ (y(d.yhat) +200) + "px;" );
+                pork_tooltip.attr("style", "left:" + (x(d.ds)+ 300 ) + "px;top:"+ (y(d.yhat) +200) + "px;" );
                 pork_tooltip.select(".tooltip-date").text(dateFormatter(d.ds));
                 pork_tooltip.select(".tooltip-likes").text(formatValue(d.yhat));
             }
