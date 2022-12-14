@@ -151,8 +151,8 @@
         // A function that update the chart
         function update(selectedGroup) {
     
-          d3.selectAll("rect.overlay").remove()
-          // Create new data with the selection?
+          
+          // Create new data with the selection
           var dataFilter = data.map(function(d){return {ds: d.ds, price:d[selectedGroup]} })
 
           //update Y axis
